@@ -1,0 +1,17 @@
+{
+  "name": "backend_course_final_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "css:build": "npx tailwindcss -i ./assets/css/input.css -o ./assets/css/style.css --minify",
+    "watch": "npx tailwindcss -i ./assets/css/input.css -o ./assets/css/style.css --minify --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tailwind": "^4.0.0"
+  }
+}
