@@ -2,12 +2,11 @@
 <html lang="pt">
     <head>
         <meta charset="utf-8">
-        <title><?= $category ?></title>
+        <title><?= $category === 'view-all' ? $subcategory : $category ?></title>
     </head>
     <body class="bg-white">
         <?php require("templates/header.php") ?>
-
-        <h1 class="uppercase tracking-[0.25rem] mt-4 mb-12 text-center font-semibold text-3xl"><?= $category ?></h1>
+        <h1 class="uppercase tracking-[0.25rem] mt-4 mb-12 text-center font-semibold text-3xl"><?= $category === 'view-all' ? $subcategory : $subcategory ?></h1>
 
         <div class="relative">
             <div id="filters" class="flex h-12 justify-between border-t border-gray-400 uppercase text-xs font-semibold px-8">
@@ -203,35 +202,35 @@
 
         <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
             <div id="product" class="flex flex-col mb-10" onclick="">
-                <a href="<?=ROOT?>/<?= $category ?>/1"><img class="object-cover mb-4 h-auto w-full" src="<?=ROOT?>/images/product-example.webp" alt=""></a>
+                <a href="<?=ROOT?>/<?= $category ?>/<?= $subcategory ?>/1"><img class="object-cover mb-4 h-auto w-full" src="<?=ROOT?>/images/product-example.webp" alt=""></a>
                 <div class="pl-2">
                     <h4 class="uppercase font-semibold">HIGH NECK WOOL JUMPER WITH ZIPPER</h4>
                     <p class="text-xs">€ 169,00</p>
                 </div>
             </div>
             <div id="product" class="flex flex-col mb-10">
-                <a href="<?=ROOT?>/<?= $category ?>/2"><img class="object-cover mb-4 h-auto w-full" src="<?=ROOT?>/images/product-example.webp" alt=""></a>
+                <a href="<?=ROOT?>/<?= $category ?>/<?= $subcategory ?>/2"><img class="object-cover mb-4 h-auto w-full" src="<?=ROOT?>/images/product-example.webp" alt=""></a>
                 <div class="pl-2">
                     <h4 class="uppercase font-semibold">HIGH NECK WOOL JUMPER WITH ZIPPER</h4>
                     <p class="text-xs">€ 169,00</p>
                 </div>
             </div>
             <div id="product" class="flex flex-col mb-10">
-                <a href="<?=ROOT?>/<?= $category ?>/3"><img class="object-cover mb-4 h-auto w-full" src="<?=ROOT?>/images/product-example.webp" alt=""></a>
+                <a href="<?=ROOT?>/<?= $category ?>/<?= $subcategory ?>/3"><img class="object-cover mb-4 h-auto w-full" src="<?=ROOT?>/images/product-example.webp" alt=""></a>
                 <div class="pl-2">
                     <h4 class="uppercase font-semibold">HIGH NECK WOOL JUMPER WITH ZIPPER</h4>
                     <p class="text-xs">€ 169,00</p>
                 </div>
             </div>
             <div id="product" class="flex flex-col mb-10">
-                <a href="<?=ROOT?>/<?= $category ?>/4"><img class="object-cover mb-4 h-auto w-full" src="<?=ROOT?>/images/product-example.webp" alt=""></a>
+                <a href="<?=ROOT?>/<?= $category ?>/<?= $subcategory ?>/4"><img class="object-cover mb-4 h-auto w-full" src="<?=ROOT?>/images/product-example.webp" alt=""></a>
                 <div class="pl-2">
                     <h4 class="uppercase font-semibold">HIGH NECK WOOL JUMPER WITH ZIPPER</h4>
                     <p class="text-xs">€ 169,00</p>
                 </div>
             </div>
             <div id="product" class="flex flex-col mb-10">
-                <a href="<?=ROOT?>/<?= $category ?>/5"><img class="object-cover mb-4 h-auto w-full" src="<?=ROOT?>/images/product-example.webp" alt=""></a>
+                <a href="<?=ROOT?>/<?= $category ?>/<?= $subcategory ?>/5"><img class="object-cover mb-4 h-auto w-full" src="<?=ROOT?>/images/product-example.webp" alt=""></a>
                 <div class="pl-2">
                     <h4 class="uppercase font-semibold">HIGH NECK WOOL JUMPER WITH ZIPPER</h4>
                     <p class="text-xs">€ 169,00</p>

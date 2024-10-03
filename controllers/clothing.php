@@ -4,7 +4,9 @@ $url_parts = explode('/', $_SERVER['REQUEST_URI']);
 
 $category = $url_parts[1];
 
-if(empty($url_parts[2])) {
+$subcategory = str_replace('-', ' ', $url_parts[2]);
+
+if(empty($url_parts[3])) {
     require("views/products.php");
 } else {
     require("views/productdetail.php");

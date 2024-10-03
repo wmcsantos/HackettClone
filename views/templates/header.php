@@ -18,40 +18,32 @@
                     </svg>
                 </div>
                 <ul class="w-full lg:flex flex-col lg:flex-row lg:h-full leading-[4rem]">
-                    <li class="group lg:px-5 h-full">
-                        <div class="category-menu flex justify-between cursor-pointer">
-                            <a href="<?=ROOT?>/clothing" class="hidden lg:block h-full text-sm leading-[4rem] uppercase text-[#1f2134] font-semibold hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-[#1f2134] lg:before:absolute before:left-0 before:bottom-3">
-                                Clothing
-                            </a>
-                            <a class="lg:hidden h-full text-sm leading-[4rem] block uppercase text-[#1f2134] font-semibold hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-[#1f2134] lg:before:absolute before:left-0 before:bottom-3">
-                                Clothing
-                            </a>
-                            <svg class="block my-auto lg:hidden text-gray-800 dark:text-white size-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 13 5.7-5.326a.909.909 0 0 0 0-1.348L1 1"/>
-                            </svg>
-                        </div>
-                        <div id="dropdown-header" class="dropdown-menu flex flex-row gap-4 pl-5 lg:justify-center bg-white absolute left-0 w-full max-h-[800px] lg:p-6 hidden opacity-0 lg:group-hover:opacity-100 lg:group-hover:flex">
-                            <div class="w-full lg:w-2/5">
-                                <ul class="dropdown-submenu flex flex-col lg:grid grid-flow-col grid-cols-2 grid-rows-7 h-full uppercase text-[#1f2134] text-sm">
-                                    <li class="h-16 content-center"><a href="">Shirts</a></li>
-                                    <li class="h-16 content-center"><a href="">Blazers</a></li>
-                                    <li class="h-16 content-center"><a href="">Trouzers & chinos</a></li>
-                                    <li class="h-16 content-center"><a href="">Polo shirts</a></li>
-                                    <li class="h-16 content-center"><a href="">Suits</a></li>
-                                    <li class="h-16 content-center"><a href="">T-shirts</a></li>
-                                    <li class="h-16 content-center"><a href="">Sweatshirts</a></li>
-                                    <li class="h-16 content-center"><a href="">Gilets</a></li>
-                                    <li class="h-16 content-center"><a href="">Coats & Jackets</a></li>
-                                    <li class="h-16 content-center"><a href="">Knitwear</a></li>
-                                    <li class="h-16 content-center"><a href="">View all</a></li>
-                                </ul>
+                    <?php foreach ( $categories as $cat) { ?>
+                        <li class="category-list group lg:px-5 h-full" data-category-id="<?= $cat['name'] ?>-<?= $cat['id'] ?>">
+                            <div class="category-menu flex justify-between cursor-pointer">
+                                <a href="<?=ROOT?>/view-all/<?= $cat['name'] ?>" class="hidden lg:block h-full text-sm leading-[4rem] uppercase text-[#1f2134] font-semibold hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-[#1f2134] lg:before:absolute before:left-0 before:bottom-3">
+                                    <?= $cat['name'] ?>
+                                </a>
+                                <a class="lg:hidden h-full text-sm leading-[4rem] block uppercase text-[#1f2134] font-semibold hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-[#1f2134] lg:before:absolute before:left-0 before:bottom-3">
+                                    <?= $cat['name'] ?>
+                                </a>
+                                <svg class="block my-auto lg:hidden text-gray-800 dark:text-white size-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 13 5.7-5.326a.909.909 0 0 0 0-1.348L1 1"/>
+                                </svg>
                             </div>
-                            <div class="1/5 hidden lg:block">
-                                <img class="object-scale-down h-80 w-160" src="<?=ROOT?>/images/clothing-header.jpg" alt="">
+                            <div id="dropdown-header" class="dropdown-menu flex flex-row gap-4 pl-5 lg:justify-center bg-white absolute left-0 w-full max-h-[800px] lg:p-6 hidden opacity-0 lg:group-hover:opacity-100 lg:group-hover:flex">
+                                <div class="w-full lg:w-2/5">
+                                    <ul id="subcategories-<?= $cat['name'] ?>-<?= $cat['id'] ?>" class="dropdown-submenu flex flex-col lg:grid grid-flow-col grid-cols-2 grid-rows-7 h-full uppercase text-[#1f2134] text-sm">
+                                        
+                                    </ul>
+                                </div>
+                                <div class="1/5 hidden lg:block">
+                                    <img class="object-scale-down h-80 w-160" src="<?=ROOT?>/images/clothing-header.jpg" alt="">
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    <li class="group lg:px-5 h-full">
+                        </li>
+                    <?php } ?>
+                    <!-- <li class="group lg:px-5 h-full">
                         <div class="category-menu flex justify-between cursor-pointer">
                             <a href="<?=ROOT?>/shoes" class="hidden h-full text-sm leading-[4rem] lg:block uppercase text-[#1f2134] font-semibold hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-[#1f2134] lg:before:absolute before:left-0 before:bottom-3">
                                 Shoes
@@ -135,7 +127,7 @@
                                 <img class="object-scale-down h-80 w-160" src="<?=ROOT?>/images/shoes-header.jpg" alt="">
                             </div>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </nav>
@@ -148,10 +140,11 @@
                     </svg>
                 </a>
             </div>
-            <a href="<?=ROOT?>/cart">
+            <a href="<?=ROOT?>/cart" class="flex">
                 <svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
                 </svg>
+                <span class="cart-quantity">0</span>
             </a>
             <button data-collapse-toggle="navbar-default" onclick="toggleMenu()" type="button" class="inline-flex items-center py-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
@@ -192,11 +185,11 @@
                 dropdownMenu?.classList.toggle('hidden');
                 dropdownMenu?.classList.toggle('opacity-0');
 
-                dropdownMenu.classList.toggle('border-t')
-                categoryMenu?.classList.toggle('flex-row-reverse')
-                categoryMenu?.classList.toggle('justify-between')
-                categoryMenu?.classList.toggle('justify-end')
-                categoryMenu?.classList.toggle('space-x-4')
+                dropdownMenu.classList.toggle('border-t');
+                categoryMenu?.classList.toggle('flex-row-reverse');
+                categoryMenu?.classList.toggle('justify-between');
+                categoryMenu?.classList.toggle('justify-end');
+                categoryMenu?.classList.toggle('space-x-4');
                 
             } else {
                 // Hide the other li's dropdowns and the li elements themselves
@@ -209,10 +202,58 @@
         });
     }
 
-    // Attach the click event listener to each first-level <li> element
-    document.querySelectorAll('nav ul > li.group').forEach(li => {
-        li.addEventListener('click', toggleSubMenu);
-    });
+    function addEventListeners() {
+
+        // Check if the screen size is less than 1024px (Tailwind lg)
+        if (window.innerWidth < 1024) {
+            document.querySelectorAll('nav ul > li.group').forEach(li => {
+                li.addEventListener('click', toggleSubMenu);
+            });
+        } else {
+            // Remove the event listener if screen size is greater than or equal to 1024px
+            document.querySelectorAll('nav ul > li.group').forEach(li => {
+                li.removeEventListener('click', toggleSubMenu);
+            });
+        }
+    }
+
+    // Run on initial load
+    addEventListeners();
+
+    // Add event listener on window resize
+    window.addEventListener('resize', addEventListeners);
+
+    document.querySelectorAll('.category-list').forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            const categoryId = this.getAttribute('data-category-id');
+            const dropdown = document.querySelector(`#subcategories-${categoryId}`);           
+            console.log(categoryId);
+            
+            if ( dropdown.innerHTML.trim() === '' )
+            {
+                fetch('../controllers/getSubcategories.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        parent_id: categoryId.split('-')[1]
+                    })
+                })
+                .then( response => response.json() )
+                .then( data => {
+                    console.log(data);
+                    
+                    dropdown.innerHTML = '';
+                    data.forEach(subcategory => {
+                        dropdown.innerHTML += `<li class="h-16 content-center"><a href="/${categoryId.split('-')[0]}/${subcategory.name.replaceAll(' ', '-')}">${subcategory.name}</a></li>`;
+                    });
+                    dropdown.innerHTML += `<li class="h-16 content-center"><a href="/view-all/${categoryId.split('-')[0]}">View all</a></li>`
+                })
+                .catch( error => console.error('Error: ', error ));
+            }
+        })
+    })
     </script>
 </body>
 </html>

@@ -6,7 +6,6 @@
     </head>
     <body>
         <?php require("templates/header.php") ?>
-        
         <main class="flex flex-col w-full">
             <div class="flex flex-col justify-center items-center gap-y-6 bg-auto w-full h-[700px]" style="background-image: url(<?=ROOT?>/images/home-image.png);">
                 <h1 class="flex w-full justify-center font-serif text-white text-8xl tracking-wider">New Collection</h1>
