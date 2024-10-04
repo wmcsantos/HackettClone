@@ -5,7 +5,7 @@
         <title>Clothing</title>
     </head>
     <body class="bg-white">
-        <?php require("templates/header.php") ?>
+        <?php require_once("templates/header.php") ?>
 
         <div class="flex">
             <div id="product-images" class="border w-3/5 border-black">

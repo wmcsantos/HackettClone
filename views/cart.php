@@ -11,7 +11,7 @@
         </style>
     </head>
     <body class="bg-slate-50">
-        <?php require("templates/header.php") ?>
+        <?php require_once("templates/header.php") ?>
         
         <div class="flex flex-col items-center p-32">
             <h2 class="text-gray-600 text-3xl font-serif font-extralight tracking-wider pb-8">Your bag is empty. Have you tried taking a look at our collection?</h2>

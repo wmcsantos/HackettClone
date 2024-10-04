@@ -1,3 +1,5 @@
 <?php
 
-require("views/login.php");
+$pageTitle = "My Account: Login | Hackett";
+
+$content = "views/login.php";

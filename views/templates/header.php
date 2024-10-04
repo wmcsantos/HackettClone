@@ -231,7 +231,7 @@
             
             if ( dropdown.innerHTML.trim() === '' )
             {
-                fetch('../controllers/getSubcategories.php', {
+                fetch('/subcategories', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -242,8 +242,6 @@
                 })
                 .then( response => response.json() )
                 .then( data => {
-                    console.log(data);
-                    
                     dropdown.innerHTML = '';
                     data.forEach(subcategory => {
                         dropdown.innerHTML += `<li class="h-16 content-center"><a href="/${categoryId.split('-')[0]}/${subcategory.name.replaceAll(' ', '-')}">${subcategory.name}</a></li>`;

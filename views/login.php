@@ -5,7 +5,7 @@
         <title>My account: Login | Hackett</title>
     </head>
     <body class="bg-gray-100">
-        <?php require("templates/header.php") ?>
+        <?php require_once("templates/header.php") ?>
         <div class="flex mt-10 lg:hidden">
             <div class="flex w-1/2 justify-center">
                 <input class="hidden peer" type="radio" id="tab-registered" name="tabs" checked>

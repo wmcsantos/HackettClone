@@ -5,7 +5,7 @@
         <title>Register</title>
     </head>
     <body class="bg-gray-100">
-        <?php require("templates/header.php") ?>
+        <?php require_once("templates/header.php") ?>
 
         <div class="bg-white mt-2 px-6 py-8 lg:mx-8">
             <h1 class="uppercase text-sm tracking-[0.25rem] text-[#1f2134] font-semibold">Create an account</h1>
