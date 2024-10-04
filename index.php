@@ -3,10 +3,6 @@ session_start();
 
 define("ENV", parse_ini_file(".env") );
 
-if (ENV === false) {
-    die("Failed to load .env");
-}
-
 require_once("./models/categories.php");
 
 $model = new Categories();

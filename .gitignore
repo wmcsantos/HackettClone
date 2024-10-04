@@ -2,5 +2,6 @@
 /node_modules
 core
 /images
-.DS_Store
 /admin
+/vendor
+.DS_Store
