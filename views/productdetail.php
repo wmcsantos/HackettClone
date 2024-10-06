@@ -9,11 +9,15 @@
 
         <div class="flex">
             <div id="product-images" class="border w-3/5 border-black">
-                <div class="grid grid-cols-2 gap-2">
-                    <picture><img class="w-full" src="<?=ROOT?>/images/product-example.webp" alt="high-neck-wool-jumper-with-zipper"></picture>
-                    <picture><img class="w-full" src="<?=ROOT?>/images/product-example.webp" alt="high-neck-wool-jumper-with-zipper"></picture>
-                    <picture><img class="w-full" src="<?=ROOT?>/images/product-example.webp" alt="high-neck-wool-jumper-with-zipper"></picture>
-                    <picture><img class="w-full" src="<?=ROOT?>/images/product-example.webp" alt="high-neck-wool-jumper-with-zipper"></picture>
+                <div class="grid grid-cols-8 gap-2">
+                    <?php 
+                        foreach ( $productImages as $image) { 
+                            $imageSize = ( $image["position"] > 4 ) ? "" : "col-span-4";
+                    ?>
+                            <picture  class="<?= $imageSize ?>">
+                                <img src="<?=ROOT . $image["image_url"] ?>" alt="">
+                            </picture>
+                    <?php } ?>
                 </div>
             </div>
             <div id="product-details" class="border w-2/5 h-[1000px] px-8 py-2 border-black">
@@ -36,11 +40,11 @@
                         </li>
                     </ol>
                 </nav>
-                <h1 class="uppercase text-xl font-semibold">High Neck Wool Jumper with Zipper</h1>
+                <h1 class="capitalize text-lg font-semibold"><?= $productInfo["name"] ?></h1>
                 <p class="text-xs mt-2">€ 169,00</p>
                 <div id="choose-color" class="mt-6">
                     <span class="uppercase font-semibold text-xs tracking-wider">Choose color:</span>
-                    <span class="text-xs">
+                    <span class="text-xs capitalize">
                         <?php 
                             // Get color from the URL
                             $currentColor = isset($_GET["color"]) ? $_GET["color"] : "";
@@ -64,7 +68,7 @@
                                 $border = ( $currentColor === $color["code"] ) ? "border-b border-black" : "";
                         ?>
                                 <li class="<?= $border ?> pb-1">
-                                    <a href="?color=<?= $color["code"] ?>">
+                                    <a href="?color=<?= $color["code"] ?>" data-color-id="<?= $color["color_id"] ?>">
                                         <img class="border border-gray-200 h-full" src="<?=ROOT?>/<?= $color["image_url"] ?>" alt="">
                                     </a>
                                 </li>
@@ -102,13 +106,7 @@
                         <h1 class="uppercase font-medium tracking-[0.25rem] text-sm pb-4">Product details</h1>
                     </div>
                     <div class="text-sm">
-                        <p>- Shirt in cotton fabric</p>
-                        <p>- Tailored fit</p>
-                        <p>- Cutaway Kent collar</p>
-                        <p>- Long sleeves with buttoned cuffs</p>
-                        <p>- Bengal stripe print in melange yarns</p>
-                        <p>- Garment washed</p>
-                        <p>- Contrast fabric on the inner placket of the cuffs</p>
+                        <?= $productInfo["description_details"] ?>
                     </div>
                 </div>
                 <div class="mt-4">
@@ -116,20 +114,26 @@
                         <h1 class="uppercase font-medium tracking-[0.25rem] text-sm pb-4">Composition</h1>
                     </div>
                     <div class="text-sm">
-                        <p>100% Cotton</p>
+                    <?= $productInfo["description_composition"] ?>
                     </div>
                 </div>
             </div>
             <div>
                 <div>
-                <h1 class="uppercase font-medium tracking-[0.25rem] text-sm pb-4">Care</h1>
+                    <div>
+                        <h1 class="uppercase font-medium tracking-[0.25rem] text-sm pb-4">Care</h1>
+                    </div>
+                    <div class="text-sm">
+                        <?= $productInfo["description_care"] ?>
+                    </div>
                 </div>
-                <div class="text-sm">
-                    <p>Do Not Bleach</p>
-                    <p>Machine Wash 30C</p>
-                    <p>Do Not Tumble Dry</p>
-                    <p>Dry Clean Allowed</p>
-                    <p>Warm Iron, 150C Maximum</p>
+                <div class="mt-4">
+                    <div>
+                        <h1 class="uppercase font-medium tracking-[0.25rem] text-sm pb-4">Delivery and returns</h1>
+                    </div>
+                    <div class="text-sm">
+                    <?= $productInfo["description_delivery"] ?>
+                    </div>
                 </div>
             </div>
         </div>
