@@ -39,11 +39,36 @@
                 <h1 class="uppercase text-xl font-semibold">High Neck Wool Jumper with Zipper</h1>
                 <p class="text-xs mt-2">€ 169,00</p>
                 <div id="choose-color" class="mt-6">
-                    <span class="uppercase font-semibold text-xs tracking-wider">Choose color:</span><span class="text-xs"> Forest Night Green</span>
+                    <span class="uppercase font-semibold text-xs tracking-wider">Choose color:</span>
+                    <span class="text-xs">
+                        <?php 
+                            // Get color from the URL
+                            $currentColor = isset($_GET["color"]) ? $_GET["color"] : "";
+
+                            $selectedColorName = "";
+                            foreach ( $productColors as $color )
+                            {
+                                if ( $currentColor === $color["code"] )
+                                {
+                                    $selectedColorName = $color["name"];
+                                    break;
+                                }
+                            }
+
+                            echo $selectedColorName;
+                        ?>
+                    </span>
                     <ul id="product-colors" class="flex h-8 mt-4 gap-x-2">
-                        <li><a href="" ><img class="border border-gray-200 h-full" src="<?=ROOT?>/images/colors/black-color.webp" alt=""></a></li>
-                        <li><a href=""><img class="border border-gray-200 h-full" src="<?=ROOT?>/images/colors/white-color.jpg" alt=""></a></li>
-                        <li><a href=""><img class="border border-gray-200 h-full" src="<?=ROOT?>/images/colors/bege-color.webp" alt=""></a></li>
+                        <?php 
+                            foreach ( $productColors as $key => $color ) {
+                                $border = ( $currentColor === $color["code"] ) ? "border-b border-black" : "";
+                        ?>
+                                <li class="<?= $border ?> pb-1">
+                                    <a href="?color=<?= $color["code"] ?>">
+                                        <img class="border border-gray-200 h-full" src="<?=ROOT?>/<?= $color["image_url"] ?>" alt="">
+                                    </a>
+                                </li>
+                        <?php } ?>
                     </ul>
                 </div>
                 <div id="product-sizes" class="mt-4">
