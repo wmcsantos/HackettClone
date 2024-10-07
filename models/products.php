@@ -22,12 +22,16 @@ class Products extends Base
     public function getProductById($product_id)
     {
         $query = $this->db->prepare("
-            SELECT
-                name, description_details, description_composition, description_care, description_delivery
+            SELECT DISTINCT
+                c1.name, c1.description_details, c1.description_composition, c1.description_care, c1.description_delivery, c2.price
             FROM 
-                products
+                `products` as c1
+            INNER JOIN 
+                `product_variants` as c2
+            ON
+                c1.id = c2.product_id
             WHERE
-                id = ?;
+                c1.id = ?;
         ");
 
         $query->execute([

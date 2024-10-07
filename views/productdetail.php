@@ -41,7 +41,7 @@
                     </ol>
                 </nav>
                 <h1 class="capitalize text-lg font-semibold"><?= $productInfo["name"] ?></h1>
-                <p class="text-xs mt-2">€ 169,00</p>
+                <p class="text-xs mt-2">€ <?= $productInfo["price"] ?></p>
                 <div id="choose-color" class="mt-6">
                     <span class="uppercase font-semibold text-xs tracking-wider">Choose color:</span>
                     <span class="text-xs capitalize">
