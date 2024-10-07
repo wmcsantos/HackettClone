@@ -201,41 +201,57 @@
         <div id="drawer-overlay" class="fixed inset-0 bg-black opacity-50 hidden z-40 lg:hidden"></div>
 
         <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-            <div id="product" class="flex flex-col mb-10" onclick="">
-                <a href="<?=ROOT?>/<?= $category ?>/<?= $subcategory ?>/1"><img class="object-cover mb-4 h-auto w-full" src="<?=ROOT?>/images/product-example.webp" alt=""></a>
-                <div class="pl-2">
-                    <h4 class="uppercase font-semibold">HIGH NECK WOOL JUMPER WITH ZIPPER</h4>
-                    <p class="text-xs">€ 169,00</p>
-                </div>
-            </div>
-            <div id="product" class="flex flex-col mb-10">
-                <a href="<?=ROOT?>/<?= $category ?>/<?= $subcategory ?>/2"><img class="object-cover mb-4 h-auto w-full" src="<?=ROOT?>/images/product-example.webp" alt=""></a>
-                <div class="pl-2">
-                    <h4 class="uppercase font-semibold">HIGH NECK WOOL JUMPER WITH ZIPPER</h4>
-                    <p class="text-xs">€ 169,00</p>
-                </div>
-            </div>
-            <div id="product" class="flex flex-col mb-10">
-                <a href="<?=ROOT?>/<?= $category ?>/<?= $subcategory ?>/3"><img class="object-cover mb-4 h-auto w-full" src="<?=ROOT?>/images/product-example.webp" alt=""></a>
-                <div class="pl-2">
-                    <h4 class="uppercase font-semibold">HIGH NECK WOOL JUMPER WITH ZIPPER</h4>
-                    <p class="text-xs">€ 169,00</p>
-                </div>
-            </div>
-            <div id="product" class="flex flex-col mb-10">
-                <a href="<?=ROOT?>/<?= $category ?>/<?= $subcategory ?>/4"><img class="object-cover mb-4 h-auto w-full" src="<?=ROOT?>/images/product-example.webp" alt=""></a>
-                <div class="pl-2">
-                    <h4 class="uppercase font-semibold">HIGH NECK WOOL JUMPER WITH ZIPPER</h4>
-                    <p class="text-xs">€ 169,00</p>
-                </div>
-            </div>
-            <div id="product" class="flex flex-col mb-10">
-                <a href="<?=ROOT?>/<?= $category ?>/<?= $subcategory ?>/5"><img class="object-cover mb-4 h-auto w-full" src="<?=ROOT?>/images/product-example.webp" alt=""></a>
-                <div class="pl-2">
-                    <h4 class="uppercase font-semibold">HIGH NECK WOOL JUMPER WITH ZIPPER</h4>
-                    <p class="text-xs">€ 169,00</p>
-                </div>
-            </div>
+            <?php 
+                $groupedProducts = [];
+
+                foreach ($products as $product) {
+                    $groupedProducts[$product['product_id']][] = $product;
+                }
+
+                // Rendering once per product_id
+                foreach ($groupedProducts as $productId => $variants) {
+                    ?>
+                    <div id="product_<?= $productId ?>" class="flex flex-col mb-10" data-product-id="<?= $productId ?>">
+                        <div id="product_variant">
+                            <?php 
+                            $i = 0;
+                            // Iterate through each variant with the same product_id
+                            foreach ($variants as $variant) {
+                            ?>
+                                <a href="<?=ROOT?>/<?= $category ?>/<?= $subcategory ?>/<?= $productId ?>?color=<?= $variant["code"] ?>">
+                                    <img
+                                        id="photo_<?= $productId ?>"
+                                        class="object-cover mb-2 h-auto w-full <?= $i == 0 ? "" : "hidden" ?>" 
+                                        src="<?=ROOT . $variant["photo_image_url"] ?>" 
+                                        alt=""
+                                        data-color="<?= $productId ?>_<?= $variant["code"] ?>"
+                                    />
+                                </a>
+                            <?php 
+                                $i++;
+                            } 
+                            ?>
+                            <div class="pl-2">
+                                <h4 class="capitalize text-sm font-medium"><?= $variants[0]["name"] ?></h4>
+                                <p class="text-xs">€ <?= $variants[0]["price"] ?></p>
+                            </div>
+                            <ul class="flex h-6 mt-4 ml-2 gap-x-2">
+                                <?php foreach ($variants as $variant) { ?>
+                                    <li class="border-b border-black pb-1">
+                                        <a href="javascript:void(0);">
+                                            <img 
+                                                class="border border-gray-200 h-full" 
+                                                src="<?=ROOT?>/<?= $variant["color_image_url"] ?>" 
+                                                alt=""
+                                                onclick="changeImage('<?= $variant['product_id'] ?>', '<?= $variant['code'] ?>', '<?= $variant['photo_image_url'] ?>')"
+                                            />
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    </div>
+                <?php } ?>
         </div>
         <script>
             // Drawer opening and closing
@@ -286,6 +302,18 @@
                     });
                 });
             });
+
+            const changeImage = (productId, colorCode, imageUrl) => {
+                let photoImage = document.getElementById("photo_" + productId);
+                
+                if( photoImage ) {
+                    photoImage.src = imageUrl;
+                    photoImage.dataset.color = productId + "_" + colorCode;
+                }
+                let url = new URL(photoImage.parentElement.href);
+                url.searchParams.set("color", colorCode);
+                photoImage.parentElement.href = url.toString();
+            }
         </script>
 
     </body>

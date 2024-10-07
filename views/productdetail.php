@@ -8,7 +8,7 @@
         <?php require_once("templates/header.php") ?>
 
         <div class="flex">
-            <div id="product-images" class="border w-3/5 border-black">
+            <div id="product-images" class="w-3/5">
                 <div class="grid grid-cols-8 gap-2">
                     <?php 
                         foreach ( $productImages as $image) { 
@@ -20,7 +20,7 @@
                     <?php } ?>
                 </div>
             </div>
-            <div id="product-details" class="border w-2/5 h-[1000px] px-8 py-2 border-black">
+            <div id="product-details" class="w-2/5 h-[1000px] px-8 py-2">
                 <nav class="flex" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                         <li>

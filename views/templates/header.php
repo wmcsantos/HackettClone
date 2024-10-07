@@ -11,7 +11,7 @@
             <img src="<?=ROOT?>/images/logos/hackett-logo.svg" alt="Hackett Logo">
         </a>
         <nav class="flex h-full items-center w-full lg:w-auto lg:block z-10">
-            <div class="nav-links absolute lg:static lg:min-h-fit bg-white min-h-full left-0 top-[-100%] w-full md:w-1/2 flex items-start px-5 border-t border-[#eee]">
+            <div class="nav-links absolute lg:static lg:min-h-fit bg-white min-h-full left-0 top-[-100%] w-full md:w-1/2 flex items-start px-5 border-[#eee]">
                 <div class="absolute right-5 -top-12 cursor-pointer" onclick="toggleMenu()">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-7">
                         <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
