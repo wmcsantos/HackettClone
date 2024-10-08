@@ -20,6 +20,24 @@ class Categories extends Base
         return $query->fetchAll();
     }
 
+    public function getCategoryId($category_name)
+    {
+        $query = $this->db->prepare("
+            SELECT
+                id
+            FROM 
+                categories
+            WHERE
+                name = ?
+        ");
+
+        $query->execute([
+            $category_name
+        ]);
+
+        return $query->fetch();
+    }
+
     public function getSubcategories($parent_id)
     {
         $query = $this->db->prepare("

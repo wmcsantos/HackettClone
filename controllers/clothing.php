@@ -10,14 +10,24 @@ $category = $url_parts[1];
 
 $subcategory = str_replace('-', ' ', $url_parts[2]);
 
-$model = new Products();
+$modelProducts = new Products();
+$modelCategories = new Categories();
 
 if(empty($url_parts[3])) {
-    $products = $model->getProductsByCategory(1);
+    $subcategorySanitized = str_replace("-", " ", $subcategory);
+    $categoryId = $modelCategories->getCategoryId($subcategorySanitized);
+
+    $products = $modelProducts->getProductsByCategory($categoryId["id"]);
     // echo "<pre>";
     // echo print_r($products);
     // echo "</pre>";
-    $content = "views/products.php";
+    if ( empty($products) )
+    {
+        $content = "views/templates/error404.php";
+    } else 
+    {
+        $content = "views/products.php";
+    }
 } else {
 
     $color_code = $_GET['color'] ?? null;
