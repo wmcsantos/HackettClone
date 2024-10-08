@@ -21,20 +21,14 @@ if(empty($url_parts[3])) {
     // echo "<pre>";
     // echo print_r($products);
     // echo "</pre>";
-    if ( empty($products) )
-    {
-        $content = "views/templates/error404.php";
-    } else 
-    {
-        $content = "views/products.php";
-    }
+    $content = "views/products.php";
 } else {
 
     $color_code = $_GET['color'] ?? null;
 
-    $productColors = $model->getProductColors($url_parts[3]);
-    $productInfo = $model->getProductById($url_parts[3]);
-    $productImages = $model->getProductImages($color_code, $url_parts[3]);
+    $productColors = $modelProducts->getProductColors($url_parts[3]);
+    $productInfo = $modelProducts->getProductById($url_parts[3]);
+    $productImages = $modelProducts->getProductImages($color_code, $url_parts[3]);
 
     $content = "views/productdetail.php";
 }

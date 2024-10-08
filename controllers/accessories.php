@@ -21,13 +21,8 @@ if(empty($url_parts[3])) {
     // echo "<pre>";
     // echo print_r($products);
     // echo "</pre>";
-    if ( empty($products) )
-    {
-        $content = "views/templates/error404.php";
-    } else 
-    {
-        $content = "views/products.php";
-    }
+    $content = "views/products.php";
+    
 } else {
     $content = "views/productdetail.php";
 }

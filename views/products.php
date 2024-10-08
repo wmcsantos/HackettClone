@@ -201,57 +201,70 @@
         <div id="drawer-overlay" class="fixed inset-0 bg-black opacity-50 hidden z-40 lg:hidden"></div>
 
         <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-            <?php 
-                $groupedProducts = [];
+            <?php
+                if ( !empty($products) )
+                {
+                    
+                    $groupedProducts = [];
 
-                foreach ($products as $product) {
-                    $groupedProducts[$product['product_id']][] = $product;
-                }
+                    foreach ($products as $product) {
+                        $groupedProducts[$product['product_id']][] = $product;
+                    }
 
-                // Rendering once per product_id
-                foreach ($groupedProducts as $productId => $variants) {
-                    ?>
-                    <div id="product_<?= $productId ?>" class="flex flex-col mb-10" data-product-id="<?= $productId ?>">
-                        <div id="product_variant">
-                            <?php 
-                            $i = 0;
-                            // Iterate through each variant with the same product_id
-                            foreach ($variants as $variant) {
-                            ?>
-                                <a href="<?=ROOT?>/<?= $category ?>/<?= $subcategory ?>/<?= $productId ?>?color=<?= $variant["code"] ?>">
-                                    <img
-                                        id="photo_<?= $productId ?>"
-                                        class="object-cover mb-2 h-auto w-full <?= $i == 0 ? "" : "hidden" ?>" 
-                                        src="<?=ROOT . $variant["photo_image_url"] ?>" 
-                                        alt=""
-                                        data-color="<?= $productId ?>_<?= $variant["code"] ?>"
-                                    />
-                                </a>
-                            <?php 
-                                $i++;
-                            } 
-                            ?>
-                            <div class="pl-2">
-                                <h4 class="capitalize text-sm font-medium"><?= $variants[0]["name"] ?></h4>
-                                <p class="text-xs">€ <?= $variants[0]["price"] ?></p>
+                    // Rendering once per product_id
+                    foreach ($groupedProducts as $productId => $variants) {
+                        ?>
+                        <div id="product_<?= $productId ?>" class="flex flex-col mb-10" data-product-id="<?= $productId ?>">
+                            <div id="product_variant">
+                                <?php 
+                                $i = 0;
+                                // Iterate through each variant with the same product_id
+                                foreach ($variants as $variant) {
+                                ?>
+                                    <a href="<?=ROOT?>/<?= $category ?>/<?= $subcategory ?>/<?= $productId ?>?color=<?= $variant["code"] ?>">
+                                        <img
+                                            id="photo_<?= $productId ?>"
+                                            class="object-cover mb-2 h-auto w-full <?= $i == 0 ? "" : "hidden" ?>" 
+                                            src="<?=ROOT . $variant["photo_image_url"] ?>" 
+                                            alt=""
+                                            data-color="<?= $productId ?>_<?= $variant["code"] ?>"
+                                        />
+                                    </a>
+                                <?php 
+                                    $i++;
+                                } 
+                                ?>
+                                <div class="pl-2">
+                                    <h4 class="capitalize text-sm font-medium"><?= $variants[0]["name"] ?></h4>
+                                    <p class="text-xs">€ <?= $variants[0]["price"] ?></p>
+                                </div>
+                                <ul class="flex h-6 mt-4 ml-2 gap-x-2">
+                                    <?php foreach ($variants as $variant) { ?>
+                                        <li class="border-b border-black pb-1">
+                                            <a href="javascript:void(0);">
+                                                <img 
+                                                    class="border border-gray-200 h-full" 
+                                                    src="<?=ROOT?>/<?= $variant["color_image_url"] ?>" 
+                                                    alt=""
+                                                    onclick="changeImage('<?= $variant['product_id'] ?>', '<?= $variant['code'] ?>', '<?= $variant['photo_image_url'] ?>')"
+                                                />
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
                             </div>
-                            <ul class="flex h-6 mt-4 ml-2 gap-x-2">
-                                <?php foreach ($variants as $variant) { ?>
-                                    <li class="border-b border-black pb-1">
-                                        <a href="javascript:void(0);">
-                                            <img 
-                                                class="border border-gray-200 h-full" 
-                                                src="<?=ROOT?>/<?= $variant["color_image_url"] ?>" 
-                                                alt=""
-                                                onclick="changeImage('<?= $variant['product_id'] ?>', '<?= $variant['code'] ?>', '<?= $variant['photo_image_url'] ?>')"
-                                            />
-                                        </a>
-                                    </li>
-                                <?php } ?>
-                            </ul>
+                        </div>
+                    <?php }
+                } else 
+                { ?>
+                    <div class="grid col-span-4 mb-10">
+                        <div class="text-center">
+                            <h2 class="text-[#525356] font-light text-lg font-serif tracking-wider my-8">There are no products from this category.</h2>
+                            <a href="/" class="uppercase text-center p-4 hover:bg-[#1f2134] hover:text-white text-xs tracking-wider my-6 bg-white text-[#1f2134] border border-[#1f2134] transition-all duration-300">Return home</a>
                         </div>
                     </div>
-                <?php } ?>
+            <?php    } 
+                ?>
         </div>
         <script>
             // Drawer opening and closing
