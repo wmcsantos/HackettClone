@@ -14,7 +14,7 @@ if (strtoupper($_SERVER["REQUEST_METHOD"]) === "POST")
         "customer-last-name" => $_POST["customer-last-name"],
         "customer-gender" => $_POST["customer-gender"],
         "customer-email" => $_POST["customer-email"],
-        "customer-password" => password_hash($_POST["customer-password"], PASSWORD_DEFAULT)
+        "customer-password" => $_POST["customer-password"]
     ];
 
     $modelUser = new Users();
@@ -43,14 +43,14 @@ if (strtoupper($_SERVER["REQUEST_METHOD"]) === "POST")
             $_POST["customer-password"] === $_POST["customer-confirm-password"]
         ) {
             $user = $modelUser->createUser($userData);
-
             $registrationStatusMessage = "Account created succesfully. Please login";
-
+            
             $_SESSION['registrationStatusMessage'] = $registrationStatusMessage;
-            header("Location: /login");
+            header(sprintf("Location: %s/login/", ROOT));
         } else
         {
             $registrationStatusMessage = "Error while creating an account. Please try again!";
+            http_response_code(400);
         }
     }
 }

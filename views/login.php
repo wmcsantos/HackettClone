@@ -26,20 +26,20 @@
         <div class="flex w-full lg:w-5/6 gap-4 mx-auto text-sm lg:mt-10">
             <div id="register" class="w-full lg:w-1/2 bg-white justify-center px-32 md:px-14 pb-14 lg:block">
                 <h2 class="my-14 text-center font-semibold tracking-[0.25rem] uppercase text-[#1f2134]">Registered</h2>
-                <form method="post" action="<?=ROOT?>/login/">
+                <form method="post" action="<?=ROOT?>/login">
                     <div class="h-12 mb-14">
                         <label class="flex h-full border-b border-slate-400 py-2">
-                            <input class="w-full appearance-none bg-transparent border-none leading-tight focus:outline-none" type="email" name="email" require placeholder="Email">
+                            <input class="w-full appearance-none bg-transparent border-none leading-tight focus:outline-none" type="email" name="email" required placeholder="Email">
                         </label>
                     </div>
                     <div class="h-12 mb-14">
                         <label class="flex h-full border-b border-slate-400 py-2">
-                            <input class="w-full appearance-none bg-transparent border-none leading-tight focus:outline-none" type="password" name="password" require placeholder="Password" required minlength="8" maxlength="1000">
+                            <input class="w-full appearance-none bg-transparent border-none leading-tight focus:outline-none" type="password" name="password" placeholder="Password" required minlength="3" maxlength="1000">
                         </label>
                     </div>
                     <div class="flex flex-col justify-center text-sm">
                         <a href="#" class="text-center tracking-[0.1rem] text-[#1f2134] underline underline-offset-8 pt-10 pb-2 hover:text-slate-500">Forgot your password?</a>
-                        <a class="uppercase text-center p-4 bg-[#1f2134] text-white tracking-wider my-6 hover:bg-white hover:text-[#1f2134] border-2 border-[#1f2134] transition-all duration-300" type="submit" name="send">Sign In and checkout</a>
+                        <button type="submit" name="send" class="uppercase text-center p-4 bg-[#1f2134] text-white tracking-wider my-6 hover:bg-white hover:text-[#1f2134] border-2 border-[#1f2134] transition-all duration-300" type="submit" name="send">Sign In and checkout</button>
                     </div>
                 </form>
             </div>

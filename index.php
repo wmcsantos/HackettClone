@@ -1,4 +1,6 @@
 <?php 
+// phpinfo();
+ob_clean();
 session_start();
 
 define("ENV", parse_ini_file(".env") );

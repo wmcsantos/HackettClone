@@ -31,4 +31,30 @@ class Users extends Base
 
         return $createdUser;
     }
+
+    public function loginUser($data)
+    {
+        $query = $this->db->prepare("
+            SELECT 
+                id, first_name, email, password_hash
+            FROM 
+                users
+            WHERE
+                email = ?;
+        ");
+
+        $query->execute([
+            $data["email"]
+        ]);
+
+        
+        $user = $query->fetch();
+
+        if ( !empty($user) && password_verify($data["password"], $user["password_hash"]) )
+        {
+            return $user;
+        }
+
+        return [];
+    }
 }
