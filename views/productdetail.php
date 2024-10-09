@@ -35,7 +35,7 @@
                             <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                             </svg>
-                            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Flowbite</span>
+                            <span class="capitalize ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400"><?= $subcategory ?></span>
                         </div>
                         </li>
                     </ol>
@@ -78,14 +78,14 @@
                 <div id="product-sizes" class="mt-4">
                     <span class="uppercase font-semibold text-xs tracking-wider">Select size:</span>
                     <div id="sizes-list" class="">
-                        <ul class="flex h-8 mt-4 mb-8 text-xs font-semibold">
-                            <li class="w-10"><a href="" class="p-1 border border-black">XS</a></li>
-                            <li class="w-10"><a href="" class="p-1 border border-black">S</a></li>
-                            <li class="w-10"><a href="" class="p-1 border border-black">M</a></li>
-                            <li class="w-10"><a href="" class="p-1 border border-black">L</a></li>
-                            <li class="w-10"><a href="" class="p-1 border border-black">XL</a></li>
-                            <li class="w-10"><a href="" class="p-1 border border-black">XXL</a></li>
-                            <li class="w-10"><a href="" class="p-1 border border-black">3XL</a></li>
+                        <ul class="flex gap-2 h-8 mt-4 mb-8 text-xs font-semibold text-center">
+                            <li class="w-10"><a href="" class="block p-2 hover:border hover:border-black">XS</a></li>
+                            <li class="w-10"><a href="" class="block p-2 hover:border hover:border-black">S</a></li>
+                            <li class="w-10"><a href="" class="block p-2 hover:border hover:border-black">M</a></li>
+                            <li class="w-10"><a href="" class="block p-2 hover:border hover:border-black">L</a></li>
+                            <li class="w-10"><a href="" class="block p-2 hover:border hover:border-black">XL</a></li>
+                            <li class="w-10"><a href="" class="block p-2 hover:border hover:border-black">XXL</a></li>
+                            <li class="w-10"><a href="" class="block p-2 hover:border hover:border-black">3XL</a></li>
                         </ul>
                     </div>
 

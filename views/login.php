@@ -6,6 +6,13 @@
     </head>
     <body class="bg-gray-100">
         <?php require_once("templates/header.php") ?>
+            <!-- Indication of a succesfull registration in case the user has done the registration -->
+            <?php 
+                if (isset($_SESSION['registrationStatusMessage'])) {
+                    echo "<p class='text-center m-4 text-red-800 text-md font-medium'>{$_SESSION['registrationStatusMessage']}</p>";
+                    unset($_SESSION['registrationStatusMessage']);
+                }
+            ?>
         <div class="flex mt-10 lg:hidden">
             <div class="flex w-1/2 justify-center">
                 <input class="hidden peer" type="radio" id="tab-registered" name="tabs" checked>
@@ -63,16 +70,6 @@
                     createAccountDiv.classList.remove('hidden');
                 }
             }
-
-            // window.addEventListener('resize', () => {
-            //     if (window.innerWidth > 1023) {
-            //         // Show both divs if resized to a large screen
-            //         const registerDiv = document.getElementById('register');
-            //         const createAccountDiv = document.getElementById('create-account');
-            //         registerDiv.classList.remove('hidden');
-            //         createAccountDiv.classList.remove('hidden');
-            //     }
-            // });
         </script>
     </body>
 </html>
