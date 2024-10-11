@@ -37,7 +37,7 @@ if (strtoupper($_SERVER["REQUEST_METHOD"]) === "POST")
             mb_strlen($_POST["customer-email"]) >= 3 &&
             mb_strlen($_POST["customer-email"]) <= 252 &&
             mb_strlen($_POST["customer-password"]) >= 3 &&
-            mb_strlen($_POST["customer-password"]) <= 252 &&
+            mb_strlen($_POST["customer-password"]) <= 1000 &&
             filter_var($_POST["customer-email"], FILTER_SANITIZE_EMAIL) &&
             filter_var($_POST["customer-email"], FILTER_VALIDATE_EMAIL) &&
             $_POST["customer-password"] === $_POST["customer-confirm-password"]

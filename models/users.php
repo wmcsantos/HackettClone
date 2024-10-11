@@ -4,6 +4,23 @@ require_once("base.php");
 
 class Users extends Base
 {
+    public function getUser($user_id)
+    {
+        $query = $this->db->prepare("
+            SELECT 
+                id, title, first_name, last_name, gender, email
+            FROM 
+                users
+            WHERE id  = ?
+        ");
+
+        $query->execute([
+            $user_id
+        ]);
+
+        return $query->fetch();
+    }
+
     public function createUser($data)
     {
         $createdUser = $this->sanitizer($data);
@@ -30,6 +47,36 @@ class Users extends Base
         unset($createdUser["customer_password"]);
 
         return $createdUser;
+    }
+
+    public function updateUser($data, $user_id)
+    {
+        $updatedUser = $this->sanitizer($data);
+
+        $query = $this->db->prepare("
+            UPDATE 
+                users
+            SET 
+                title = ?, 
+                first_name = ?, 
+                last_name = ?, 
+                gender = ?, 
+                email = ?
+            WHERE
+                id = ?;
+        ");
+
+        $query->execute([
+            $updatedUser["title"],
+            $updatedUser["first_name"],
+            $updatedUser["last_name"],
+            $updatedUser["gender"],
+            $updatedUser["email"],
+            $user_id
+        ]);
+
+        return $updatedUser;
+
     }
 
     public function loginUser($data)
