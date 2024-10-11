@@ -8,7 +8,7 @@ class Users extends Base
     {
         $query = $this->db->prepare("
             SELECT 
-                id, title, first_name, last_name, gender, email
+                id, title, first_name, last_name, gender, email, password_hash
             FROM 
                 users
             WHERE id  = ?
@@ -76,7 +76,27 @@ class Users extends Base
         ]);
 
         return $updatedUser;
+    }
 
+    public function updateUserPassword($data, $user_id)
+    {
+        $updatedUser = $this->sanitizer($data);
+
+        $query = $this->db->prepare("
+            UPDATE
+                users
+            SET
+                password_hash = ?
+            WHERE
+                id = ?;
+        ");
+
+        $query->execute([
+            password_hash($updatedUser["new_password"], PASSWORD_DEFAULT),
+            $user_id
+        ]);
+
+        return $updatedUser;
     }
 
     public function loginUser($data)
