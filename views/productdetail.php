@@ -77,15 +77,15 @@
                 </div>
                 <div id="product-sizes" class="mt-4">
                     <span class="uppercase font-semibold text-xs tracking-wider">Select size:</span>
-                    <div id="sizes-list" class="">
-                        <ul class="flex gap-2 h-8 mt-4 mb-8 text-xs font-semibold text-center">
-                            <li class="w-10"><a href="" class="block p-2 hover:border hover:border-black">XS</a></li>
-                            <li class="w-10"><a href="" class="block p-2 hover:border hover:border-black">S</a></li>
-                            <li class="w-10"><a href="" class="block p-2 hover:border hover:border-black">M</a></li>
-                            <li class="w-10"><a href="" class="block p-2 hover:border hover:border-black">L</a></li>
-                            <li class="w-10"><a href="" class="block p-2 hover:border hover:border-black">XL</a></li>
-                            <li class="w-10"><a href="" class="block p-2 hover:border hover:border-black">XXL</a></li>
-                            <li class="w-10"><a href="" class="block p-2 hover:border hover:border-black">3XL</a></li>
+                    <div>
+                        <ul id="sizes-list" class="flex gap-2 h-8 mt-4 mb-8 text-xs font-semibold text-center">
+                            <li class="w-10"><a href="" onclick="updateUrl(event, this, 'XS')" class="block p-2 hover:border hover:border-black">XS</a></li>
+                            <li class="w-10"><a href="" onclick="updateUrl(event, this, 'S')" class="block p-2 hover:border hover:border-black">S</a></li>
+                            <li class="w-10"><a href="" onclick="updateUrl(event, this, 'M')" class="block p-2 hover:border hover:border-black">M</a></li>
+                            <li class="w-10"><a href="" onclick="updateUrl(event, this, 'L')" class="block p-2 hover:border hover:border-black">L</a></li>
+                            <li class="w-10"><a href="" onclick="updateUrl(event, this, 'XL')" class="block p-2 hover:border hover:border-black">XL</a></li>
+                            <li class="w-10"><a href="" onclick="updateUrl(event, this, 'XXL')" class="block p-2 hover:border hover:border-black">XXL</a></li>
+                            <li class="w-10"><a href="" onclick="updateUrl(event, this, '3XL')" class="block p-2 hover:border hover:border-black">3XL</a></li>
                         </ul>
                     </div>
 
@@ -141,4 +141,43 @@
             <img src="<?=ROOT?>/images/hackett-logo-footer.webp" alt="Hackett Logo Footer" class="bg-contain h-32 mx-auto">
         </div>
     </body>
+    <script>
+        function highlightSelectedSize(size)
+        {
+            const listItems = document.querySelectorAll('#sizes-list li');
+            listItems.forEach(li => {
+                const anchor = li.querySelector('a');
+                const sizeInAnchor = anchor.innerText.trim();
+                
+                if (sizeInAnchor === size) 
+                {
+                    anchor.classList.add('border', 'border-black');
+                } else 
+                {
+                    anchor.classList.remove('border', 'border-black');
+                }
+            });
+        }
+
+        function updateUrl(event, element, size)
+        {
+
+            const url = new URL(window.location.href);
+
+            url.searchParams.set("size", size);
+
+            window.history.pushState({}, '', url);
+
+            highlightSelectedSize(size);
+        }
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const size = urlParams.get('size');
+            if (size) {
+                highlightSelectedSize(size);
+            }
+        };
+
+    </script>
 </html>
