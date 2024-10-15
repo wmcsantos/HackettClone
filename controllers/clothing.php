@@ -27,6 +27,7 @@ if(empty($url_parts[3])) {
     $color_code = $_GET['color'] ?? null;
 
     $productColors = $modelProducts->getProductColors($url_parts[3]);
+    $productSizes = $modelProducts->getProductSizes();
     $productInfo = $modelProducts->getProductById($url_parts[3]);
     $productImages = $modelProducts->getProductImages($color_code, $url_parts[3]);
 

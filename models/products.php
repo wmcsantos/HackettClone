@@ -23,7 +23,7 @@ class Products extends Base
     {
         $query = $this->db->prepare("
             SELECT DISTINCT
-                c1.name, c1.description_details, c1.description_composition, c1.description_care, c1.description_delivery, c2.price
+                c1.id, c1.name, c1.description_details, c1.description_composition, c1.description_care, c1.description_delivery, c2.id as product_variant_id, c2.price
             FROM 
                 `products` as c1
             INNER JOIN 
@@ -36,6 +36,26 @@ class Products extends Base
 
         $query->execute([
             $product_id
+        ]);
+
+        return $query->fetch();
+    }
+
+    public function getProductVariant($product_id, $size_id, $color_products_id)
+    {
+        $query = $this->db->prepare("
+            SELECT
+                id, price
+            FROM
+                product_variants
+            WHERE
+                product_id = ? AND size_id = ? AND color_products_id = ?;
+        ");
+
+        $query->execute([
+            $product_id,
+            $size_id,
+            $color_products_id
         ]);
 
         return $query->fetch();
@@ -118,10 +138,22 @@ class Products extends Base
         return $query->fetchAll();
     }
 
+    public function getProductSizes()
+    {
+        $query = $this->db->prepare("
+            SELECT 
+                id
+            FROM 
+                sizes;
+        ");
+
+        $query->execute();
+
+        return $query->fetchAll();
+    }
+
     public function getProductsByCategory($category_id)
     {
-        
-
         $query = $this->db->prepare("
             SELECT DISTINCT
                 c2.product_id, c7.id, c7.name, c1.image_url as photo_image_url, c4.name, c5.price, c1.position, c3.code, c3.image_url as color_image_url

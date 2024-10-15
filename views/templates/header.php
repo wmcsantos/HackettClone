@@ -60,7 +60,20 @@
                 <svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
                 </svg>
-                <span class="cart-quantity">0</span>
+                <span id="cart-quantity">
+                    <?php 
+                        if (isset($_SESSION["user_id"]))
+                        {
+
+                            require_once("models/carts.php");
+                            $modelCarts = new Carts();
+                            $userActiveCart = $modelCarts->getUserActiveCart($_SESSION["user_id"]);
+                            $cartItemsCount = $modelCarts->countCartItemsFromCart($userActiveCart["id"]);
+                            
+                            echo $cartItemsCount["Total Cart Items"];
+                        }
+                    ?>
+                </span>
             </a>
             <button data-collapse-toggle="navbar-default" onclick="toggleMenu()" type="button" class="inline-flex items-center py-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>

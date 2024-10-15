@@ -6,7 +6,7 @@
     </head>
     <body class="bg-white">
         <?php require_once("templates/header.php") ?>
-
+        <?= print_r($_SESSION) ?>
         <div class="flex">
             <div id="product-images" class="w-3/5">
                 <div class="grid grid-cols-8 gap-2">
@@ -40,7 +40,7 @@
                         </li>
                     </ol>
                 </nav>
-                <h1 class="capitalize text-lg font-semibold"><?= $productInfo["name"] ?></h1>
+                <h1 id="product-title" class="capitalize text-lg font-semibold" data-product-id=<?= $productInfo["id"] ?>><?= $productInfo["name"] ?></h1>
                 <p class="text-xs mt-2">€ <?= $productInfo["price"] ?></p>
                 <div id="choose-color" class="mt-6">
                     <span class="uppercase font-semibold text-xs tracking-wider">Choose color:</span>
@@ -48,6 +48,7 @@
                         <?php 
                             // Get color from the URL
                             $currentColor = isset($_GET["color"]) ? $_GET["color"] : "";
+                            $currentSize = isset($_GET["size"]) ? $_GET["size"] : "";
 
                             $selectedColorName = "";
                             foreach ( $productColors as $color )
@@ -68,7 +69,7 @@
                                 $border = ( $currentColor === $color["code"] ) ? "border-b border-black" : "";
                         ?>
                                 <li class="<?= $border ?> pb-1">
-                                    <a href="?color=<?= $color["code"] ?>" data-color-id="<?= $color["color_id"] ?>">
+                                    <a href="?color=<?= $color["code"] ?>" class="color-option" data-color-id="<?= $color["color_id"] ?>" data-default-color-id="<?= $currentColor === $color["code"]  ? $color["color_id"] : "" ?>">
                                         <img class="border border-gray-200 h-full" src="<?=ROOT?>/<?= $color["image_url"] ?>" alt="">
                                     </a>
                                 </li>
@@ -76,27 +77,28 @@
                     </ul>
                 </div>
                 <div id="product-sizes" class="mt-4">
-                    <span class="uppercase font-semibold text-xs tracking-wider">Select size:</span>
+                    <div class="flex gap-2 items-center">
+                        <span class="uppercase font-semibold text-xs tracking-wider">Select size:</span>
+                        <p id="missing-size-message" class="text-red-800 text-xs"></p>
+                    </div>
                     <div>
                         <ul id="sizes-list" class="flex gap-2 h-8 mt-4 mb-8 text-xs font-semibold text-center">
-                            <li class="w-10"><a href="" onclick="updateUrl(event, this, 'XS')" class="block p-2 hover:border hover:border-black">XS</a></li>
-                            <li class="w-10"><a href="" onclick="updateUrl(event, this, 'S')" class="block p-2 hover:border hover:border-black">S</a></li>
-                            <li class="w-10"><a href="" onclick="updateUrl(event, this, 'M')" class="block p-2 hover:border hover:border-black">M</a></li>
-                            <li class="w-10"><a href="" onclick="updateUrl(event, this, 'L')" class="block p-2 hover:border hover:border-black">L</a></li>
-                            <li class="w-10"><a href="" onclick="updateUrl(event, this, 'XL')" class="block p-2 hover:border hover:border-black">XL</a></li>
-                            <li class="w-10"><a href="" onclick="updateUrl(event, this, 'XXL')" class="block p-2 hover:border hover:border-black">XXL</a></li>
-                            <li class="w-10"><a href="" onclick="updateUrl(event, this, '3XL')" class="block p-2 hover:border hover:border-black">3XL</a></li>
+                            <li class="w-10"><a href="" data-size-id="<?= $productSizes[0]["id"] ?>" data-default-size-id="<?= $currentSize === "XS" ? 1 : "" ?>" onclick="updateUrl('XS')" class="size-option block p-2 hover:border hover:border-black">XS</a></li>
+                            <li class="w-10"><a href="" data-size-id="<?= $productSizes[1]["id"] ?>" data-default-size-id="<?= $currentSize === "S" ? 2 : "" ?>" onclick="updateUrl('S')" class="size-option block p-2 hover:border hover:border-black">S</a></li>
+                            <li class="w-10"><a href="" data-size-id="<?= $productSizes[2]["id"] ?>" data-default-size-id="<?= $currentSize === "M" ? 3 : "" ?>" onclick="updateUrl('M')" class="size-option block p-2 hover:border hover:border-black">M</a></li>
+                            <li class="w-10"><a href="" data-size-id="<?= $productSizes[3]["id"] ?>" data-default-size-id="<?= $currentSize === "L" ? 4 : "" ?>" onclick="updateUrl('L')" class="size-option block p-2 hover:border hover:border-black">L</a></li>
+                            <li class="w-10"><a href="" data-size-id="<?= $productSizes[4]["id"] ?>" data-default-size-id="<?= $currentSize === "XL" ? 5 : "" ?>" onclick="updateUrl('XL')" class="size-option block p-2 hover:border hover:border-black">XL</a></li>
+                            <li class="w-10"><a href="" data-size-id="<?= $productSizes[5]["id"] ?>" data-default-size-id="<?= $currentSize === "XXL" ? 6 : "" ?>" onclick="updateUrl('XXL')" class="size-option block p-2 hover:border hover:border-black">XXL</a></li>
+                            <li class="w-10"><a href="" data-size-id="<?= $productSizes[6]["id"] ?>" data-default-size-id="<?= $currentSize === "3XL" ? 7 : "" ?>" onclick="updateUrl('3XL')" class="size-option block p-2 hover:border hover:border-black">3XL</a></li>
                         </ul>
                     </div>
 
                     <a href="" class="uppercase underline underline-offset-1 text-sm">Size Guide</a>
                 </div>
 
-                <form action="">
-                    <button class="after:content-[url('<?=ROOT?>/images/icons/shopping-cart-icon.svg')] hover:after:content-[url('<?=ROOT?>/images/icons/shopping-cart-hover-icon.svg')] w-full uppercase p-2 bg-[#1f2134] text-white text-sm tracking-wider my-6 hover:bg-white hover:text-[#1f2134] hover:fill-black border-2 border-[#1f2134] transition-all duration-300">
-                        Add to Bag 
-                    </button>
-                </form>
+                <button id="add-to-cart" type="submit" value="Add to Bag" class="after:content-[url('<?=ROOT?>/images/icons/shopping-cart-icon.svg')] hover:after:content-[url('<?=ROOT?>/images/icons/shopping-cart-hover-icon.svg')] w-full uppercase p-2 bg-[#1f2134] text-white text-sm tracking-wider my-6 hover:bg-white hover:text-[#1f2134] hover:fill-black border-2 border-[#1f2134] transition-all duration-300">
+                    Add to bag
+                </button>
             </div>
         </div>
         <div class="product-details w-2/3 grid grid-cols-2 gap-4 mx-4 mt-12">
@@ -142,6 +144,42 @@
         </div>
     </body>
     <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        let selectedColor = urlParams.get('color') || null;
+        let selectedSize = urlParams.get('size') || null;
+
+        const defaultColorElement = document.querySelector("[data-default-color-id]:not([data-default-color-id=''])");
+        
+        const defaultSizeElement = document.querySelector("[data-default-size-id]:not([data-default-size-id=''])");
+
+        window.onload = function() {
+
+            if (defaultColorElement) {
+                selectedColor = defaultColorElement.getAttribute("data-default-color-id");               
+            }
+            
+            if (defaultSizeElement) {
+                selectedSize = defaultSizeElement.getAttribute("data-default-size-id");
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const size = urlParams.get('size');
+            highlightSelectedSize(size);
+        };
+
+        document.querySelectorAll(".color-option").forEach(function(colorOption) {
+            colorOption.addEventListener("click", function(event) {
+                selectedColor = this.getAttribute("data-color-id");
+            });
+        });
+
+        document.querySelectorAll(".size-option").forEach(function(sizeOption) {
+            sizeOption.addEventListener("click", function(event) {
+                event.preventDefault();
+                selectedSize = this.getAttribute("data-size-id");
+            });
+        });
+
         function highlightSelectedSize(size)
         {
             const listItems = document.querySelectorAll('#sizes-list li');
@@ -159,7 +197,7 @@
             });
         }
 
-        function updateUrl(event, element, size)
+        function updateUrl(size)
         {
 
             const url = new URL(window.location.href);
@@ -171,13 +209,65 @@
             highlightSelectedSize(size);
         }
 
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const size = urlParams.get('size');
-            if (size) {
-                highlightSelectedSize(size);
+        function updateCartQuantity()
+        {
+            fetch("/cart-items-count", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+            .then( response => response.json() )
+            .then( data => {
+                if ( data.success )
+                {
+                    const cartQuantityElement = document.getElementById("cart-quantity");
+                    cartQuantityElement.textContent = data.count;
+                } else
+                {
+                    console.error( "Failed to fetch cart count:", data.message );
+                }
+            })
+            .catch(( error ) => {
+                console.error( "Error fetching cart count:", error );
+            });
+        }
+
+        document.getElementById("add-to-cart").addEventListener("click", function(event) {
+            event.preventDefault();
+            
+            const productId = document.getElementById("product-title").dataset.productId;
+            
+            const data = {
+                productId,
+                selectedSize,
+                selectedColor
+            };
+
+            if (!selectedSize) {
+                const missingSizeMessage = "Please select a size"
+                document.getElementById("missing-size-message").textContent = missingSizeMessage;
+                return;
             }
-        };
+
+            fetch("/add-to-cart", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if( data.success )
+                {
+                    updateCartQuantity();
+                }
+            })
+            .catch((error) => {
+                console.error("Error: ", error);
+            })
+        })
 
     </script>
 </html>
