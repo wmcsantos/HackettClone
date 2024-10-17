@@ -1,6 +1,8 @@
 <?php
 
 require_once("./models/products.php");
+require_once("models/cart-items.php");
+require_once("models/carts.php");
 
 $pageTitle = "Boy's Clothing, Footwear & Accesories | Hackett";
 
@@ -18,11 +20,17 @@ if(empty($url_parts[3])) {
     $categoryId = $modelCategories->getCategoryId($subcategorySanitized);
 
     $products = $modelProducts->getProductsByCategory($categoryId["id"]);
-    // echo "<pre>";
-    // echo print_r($products);
-    // echo "</pre>";
+
     $content = "views/products.php";
     
 } else {
+
+    $modelCartItems = new CartItems();
+    $modelCarts = new Carts();
+
+    $userActiveCart = $modelCarts->getUserActiveCart($_SESSION["user_id"]);
+
+    $cartItems = $modelCartItems->getCartItemInCart($userActiveCart["id"]);
+
     $content = "views/productdetail.php";
 }

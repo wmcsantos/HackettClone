@@ -4,6 +4,26 @@
         <meta charset="utf-8">
         <title>Clothing</title>
     </head>
+    <style>
+        /* Drawer styles */
+        #cart-drawer {
+            /* Initially hidden offscreen to the right */
+            transform: translateX(100%);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        #cart-drawer.open {
+            /* When open, the drawer slides into view */
+            transform: translateX(0);
+        }
+
+        /* Basic utility styles for close button */
+        button#close-cart-drawer {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
     <body class="bg-white">
         <?php require_once("templates/header.php") ?>
         <?= print_r($_SESSION) ?>
@@ -142,6 +162,30 @@
         <div class="mt-16 bg-white mx-auto py-10">
             <img src="<?=ROOT?>/images/hackett-logo-footer.webp" alt="Hackett Logo Footer" class="bg-contain h-32 mx-auto">
         </div>
+        <!-- Shopping Cart Drawer -->
+        <div id="cart-drawer" class="fixed top-16 right-0 w-[400px] h-full bg-white transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+            <div class="p-6 pb-0 flex justify-between items-center">
+                <h2 class="text-sm font-semibold uppercase tracking-[0.2rem]">In your bag</h2>
+                <button id="close-cart-drawer" class="text-gray-500 hover:text-gray-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6">
+                <div id="cart-items">
+                    
+                </div>
+                <div class="mt-6">
+                    <p class="text-xs font-semibold">Subtotal <span id="cart-total" class=" right-0">€ 0.00</span></p>
+                </div>
+                <div class="mt-6 flex justify-between gap-2 text-center">
+                    <a href="/cart" class="basis-1/2 text-xs tracking-[0.2rem] text-[#1f2134] border border-[#1f2134] px-4 py-3 uppercase bg-white">Shopping bag</a>
+                    <a href="/checkout" class="basis-1/2 text-xs tracking-[0.2rem] text-white px-4 py-3 uppercase bg-[#1f2134]">Checkout</a>
+                </div>
+            </div>
+        </div>
+
     </body>
     <script>
         const urlParams = new URLSearchParams(window.location.search);
@@ -151,6 +195,9 @@
         const defaultColorElement = document.querySelector("[data-default-color-id]:not([data-default-color-id=''])");
         
         const defaultSizeElement = document.querySelector("[data-default-size-id]:not([data-default-size-id=''])");
+
+        const cartDrawer = document.getElementById("cart-drawer");
+        const closeCartDrawer = document.getElementById("close-cart-drawer");
 
         window.onload = function() {
 
@@ -233,6 +280,19 @@
             });
         }
 
+        // Function to open the cart drawer
+        function openCartDrawer() {
+            cartDrawer.classList.add("open");
+        }
+
+        // Function to close the cart drawer
+        function closeCartDrawerHandler() {
+            cartDrawer.classList.remove("open");
+        }
+
+        // Add click event to close button
+        closeCartDrawer.addEventListener("click", closeCartDrawerHandler);
+
         document.getElementById("add-to-cart").addEventListener("click", function(event) {
             event.preventDefault();
             
@@ -262,12 +322,80 @@
                 if( data.success )
                 {
                     updateCartQuantity();
+
+                    // Fetch the updated cart items and re-render the cart drawer
+                    updateCartDrawerItems();
+
+                    // Show the drawer
+                    openCartDrawer();
                 }
             })
             .catch((error) => {
                 console.error("Error: ", error);
             })
         })
+
+        function updateCartDrawerItems() {
+            fetch("/cart-items", { // Assume this endpoint returns the updated cart HTML or JSON data
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Assuming data.items contains an array of cart items.
+                    const cartItems = data.items;
+                    const cartItemsContainer = document.getElementById("cart-items");
+
+                    // Clear the existing cart items
+                    cartItemsContainer.innerHTML = '';
+
+                    // Loop through the cart items and append them to the cart drawer
+                    cartItems.forEach(item => {
+                        const cartItemHTML = `
+                            <div id="cart-item-id-${item.id}" class="flex relative gap-4 my-4">
+                                <div id="product-variant">
+                                    <div class="product-image">
+                                        <a href="">
+                                            <picture class="block w-[115px] h-[160px]">
+                                                <img src="${item.image_url}" alt="">
+                                            </picture>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div id="product-details" class="flex flex-col justify-between">
+                                    <div>
+                                        <h3 class="text-xs font-semibold capitalize">${item.product_name}</h3>
+                                        <p class="text-xs mt-2">€ ${item.price}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm capitalize">Color: ${item.color}</p>
+                                        <p class="text-sm">Size: ${item.size}</p>
+                                        <span class="text-sm">Quantity: </span>
+                                        <span class="text-sm">${item.quantity}</span>
+                                    </div>
+                                    <div>
+                                        <a href="" class="text-sm underline capitalize">Edit item</a>
+                                        <span>|</span>
+                                        <a href="javascript:void(0)" id="remove-item" class="text-sm underline capitalize" data-cart-item-id="${item.id}">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        // Append the new item to the cart drawer
+                        cartItemsContainer.insertAdjacentHTML('beforeend', cartItemHTML);
+                    });
+                } else {
+                    console.error("Failed to fetch cart items:", data.message);
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching cart items:", error);
+            });
+        }
 
     </script>
 </html>

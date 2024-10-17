@@ -1,6 +1,8 @@
 <?php
 
 require_once("./models/products.php");
+require_once("models/cart-items.php");
+require_once("models/carts.php");
 
 $pageTitle = "Men's Clothing: Shop Men's Fashion and Clothing | Hackett";
 
@@ -30,6 +32,13 @@ if(empty($url_parts[3])) {
     $productSizes = $modelProducts->getProductSizes();
     $productInfo = $modelProducts->getProductById($url_parts[3]);
     $productImages = $modelProducts->getProductImages($color_code, $url_parts[3]);
+
+    $modelCartItems = new CartItems();
+    $modelCarts = new Carts();
+
+    $userActiveCart = $modelCarts->getUserActiveCart($_SESSION["user_id"]);
+
+    $cartItems = $modelCartItems->getCartItemInCart($userActiveCart["id"]);
 
     $content = "views/productdetail.php";
 }
