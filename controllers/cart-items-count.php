@@ -20,6 +20,6 @@ $cartItemsCount = $modelCarts->countCartItemsFromCart($userActiveCart["id"]);
 
 echo json_encode([
     "success" => true,
-    "count" => $cartItemsCount["Total Cart Items"] ?? 0
+    "count" => $cartItemsCount["total_cart_items"] ?? 0
 ]);
 exit;

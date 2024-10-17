@@ -65,7 +65,7 @@ class Carts extends Base
     {
         $query = $this->db->prepare("
             SELECT 
-                SUM(quantity) 'Total Cart Items'
+                SUM(quantity) 'total_cart_items'
             FROM
                 cart_items
             WHERE

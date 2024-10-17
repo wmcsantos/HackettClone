@@ -70,7 +70,7 @@
                             $userActiveCart = $modelCarts->getUserActiveCart($_SESSION["user_id"]);
                             $cartItemsCount = $modelCarts->countCartItemsFromCart($userActiveCart["id"]);
                             
-                            echo $cartItemsCount["Total Cart Items"];
+                            echo $cartItemsCount["total_cart_items"];
                         }
                     ?>
                 </span>
