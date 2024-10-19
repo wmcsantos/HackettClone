@@ -38,9 +38,9 @@
                 <h1 class="text-gray-600 text-3xl font-serif font-extralight tracking-wider pb-8">Your bag is empty. Have you tried taking a look at our collection?</h1>
                 <p class="leading-8 text-sm">Registered with us, but, you can't see your items?</p>
                 <p class="leading-8 text-sm">Sign in to see your bag and get shopping!</p>
-                <div>
-                    <button class="uppercase p-4 bg-[#1f2134] text-white text-sm tracking-wider my-6 hover:bg-white hover:text-[#1f2134] border-2 border-[#1f2134] transition-all duration-300">Continue shopping</button>
-                    <button class="uppercase p-4 bg-[#1f2134] text-white text-sm tracking-wider my-6 hover:bg-white hover:text-[#1f2134] border-2 border-[#1f2134] transition-all duration-300">Sign in</button>
+                <div class="mt-8">
+                    <a href="/" class="uppercase p-4 bg-[#1f2134] text-white text-sm tracking-wider my-6 hover:bg-white hover:text-[#1f2134] border-2 border-[#1f2134] transition-all duration-300">Continue shopping</a>
+                    <a href="/login" class="uppercase p-4 bg-[#1f2134] text-white text-sm tracking-wider my-6 hover:bg-white hover:text-[#1f2134] border-2 border-[#1f2134] transition-all duration-300">Sign in</a>
                 </div>
             </div>
         <?php } else { ?>
@@ -48,7 +48,18 @@
                 <div class="basis-3/4 mt-2 bg-white text-[#0F0E0E]">
                     <div class="flex items-center gap-2 p-4">
                         <h1 class="uppercase text-sm font-bold tracking-[0.25rem]">Shopping bag</h1>
-                        <span id="shopping-bag-quantity" class="text-gray-500">(3)</span>
+                        <span id="shopping-bag-quantity" class="text-gray-500">
+                            <?php 
+                                if (isset($_SESSION["user_id"]))
+                                {
+                                    require_once("models/carts.php");
+                                    $modelCarts = new Carts();
+                                    $newCartQuantity = $modelCarts->countCartItemsFromCart($userActiveCart["id"])["total_cart_items"];
+                                    
+                                    echo "(" . $newCartQuantity . ")";
+                                }
+                            ?>
+                        </span>
                     </div>
                     <?php foreach ($cartItems as $item) { ?>
                         <div id="cart-item-id-<?= $item["id"] ?>" class="flex relative gap-4 m-4">
@@ -81,9 +92,18 @@
                         </div>
                     <?php } ?>
                 </div>
-                <div class="basis-1/3 mt-2 bg-white">
-                    <div class="flex gap-2 p-4">
+                <div class="basis-1/3 mt-2 bg-white h-[300px]">
+                    <div class="flex flex-col gap-2 p-4">
                         <h2 class="uppercase text-sm text-[#0F0E0E] font-bold tracking-[0.25rem]">Order summary</h2>
+                        <div class="flex justify-between text-sm font-normal text-[#0E0F0F] mt-3">
+                            <p>Subtotal:</p>
+                            <span id="cart-total">€ <?= $cartTotalPrice["total_price"] ?></span>
+                        </div>
+                        <div class="flex justify-between text-sm font-normal text-[#0E0F0F] pt-3 border-t">
+                            <p>Order Total <span class="text-xs">(vat. included)</span></p>
+                            <span id="cart-total">€ <?= $cartTotalPrice["total_price"] ?></span>
+                        </div>
+                        <a href="/checkout" class="bottom-0 basis-1/2 text-sm text-center tracking-[0.2rem] text-white px-4 py-3 uppercase bg-[#1f2134]">Go to checkout</a>
                     </div>
                 </div>
             </div>
@@ -123,6 +143,12 @@
                                 const cartQuantity = document.getElementById("cart-quantity");
                                 shoppingBagQuantity.textContent = `(${data.newCartQuantity ?? 0})`
                                 cartQuantity.textContent = data.newCartQuantity ?? 0;
+
+                                // Update total price
+                                const cartTotalElements = document.querySelectorAll("#cart-total");
+                                cartTotalElements.forEach( el => {
+                                    el.textContent = `€ ${data.newTotalPrice ?? 0}`
+                                })
                             });
                         }
                     })

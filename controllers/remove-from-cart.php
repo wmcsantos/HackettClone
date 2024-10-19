@@ -36,11 +36,13 @@ if ( $_SERVER["REQUEST_METHOD"] === "POST" )
         // Get the new total number of items in the cart after removal
         $userActiveCart = $modelCarts->getUserActiveCart($_SESSION["user_id"]);
         $newCartQuantity = $modelCarts->countCartItemsFromCart($userActiveCart["id"])["total_cart_items"];
+        $newCartTotalPrice = $modelCartItems->sumItemsFromCart($userActiveCart["id"]);
 
         echo json_encode([
             "success" => true,
             "message" => "Item removed successfully.",
-            "newCartQuantity" => $newCartQuantity
+            "newCartQuantity" => $newCartQuantity,
+            "newTotalPrice" => $newCartTotalPrice["total_price"]
         ]);
     } else {
         echo json_encode([

@@ -3,7 +3,8 @@
 require_once("models/cart-items.php");
 require_once("models/carts.php");
 
-$pageTitle = "Cart | Hackett";
+// Page title to be displayed in the tab of the browser
+$pageTitle = "Checkout Page | Hackett";
 
 $modelCartItems = new CartItems();
 $modelCarts = new Carts();
@@ -17,4 +18,4 @@ if ( isset($_SESSION["user_id"]) )
     $cartTotalPrice = $modelCartItems->sumItemsFromCart($userActiveCart["id"]);
 }
 
-$content = "views/cart.php";
+$content = "views/checkout.php";

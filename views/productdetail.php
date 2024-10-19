@@ -26,7 +26,6 @@
     </style>
     <body class="bg-white">
         <?php require_once("templates/header.php") ?>
-        <?= print_r($_SESSION) ?>
         <div class="flex">
             <div id="product-images" class="w-3/5">
                 <div class="grid grid-cols-8 gap-2">
@@ -328,12 +327,23 @@
 
                     // Show the drawer
                     openCartDrawer();
+
+                    // Update subtotal price
+                    updateSubTotalCartPrice(data.newTotalPrice);
                 }
             })
             .catch((error) => {
                 console.error("Error: ", error);
             })
         })
+
+        function updateSubTotalCartPrice(totalPrice) {
+            const cartTotalElements = document.querySelectorAll("#cart-total");
+            
+            cartTotalElements.forEach(el => {
+                el.textContent = `€ ${totalPrice ?? 0}`;
+            });
+        }
 
         function updateCartDrawerItems() {
             fetch("/cart-items", { // Assume this endpoint returns the updated cart HTML or JSON data

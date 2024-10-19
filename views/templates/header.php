@@ -75,7 +75,6 @@
                 </svg>
             </button>
         </div>
-
     </div>
     <script>
         const toggleMenu = () => {
@@ -149,7 +148,6 @@
         item.addEventListener('mouseenter', function() {
             const categoryId = this.getAttribute('data-category-id');
             const dropdown = document.querySelector(`#subcategories-${categoryId}`);           
-            console.log(categoryId);
             
             if ( dropdown.innerHTML.trim() === '' )
             {

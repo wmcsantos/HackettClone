@@ -1,11 +1,13 @@
 <?php
 
 require_once("models/carts.php");
+require_once("models/cart-items.php");
 require_once("models/products.php");
 
 header('Content-Type: application/json');  // Set the correct content type
 
 $modelCarts = new Carts();
+$modelCartItems = new CartItems();
 $modelProducts = new Products();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST")
@@ -46,12 +48,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
     $quantity = $data["quantity"] ?? 1;
     $productVariantPrice = $productVariant["price"] ?? 0;
-
+    $userActiveCart = $modelCarts->getUserActiveCart($_SESSION["user_id"]);
+    
+    
     if ( $modelCarts->addToCart($_SESSION["user_id"], $productVariantId, $quantity, $productVariantPrice) )
     {
+        // Calculate new cart total price after adding the product to the cart
+        $newCartTotalPrice = $modelCartItems->sumItemsFromCart($userActiveCart["id"]);
+        
         echo json_encode([
             "success" => true,
-            "message" => "Product added to cart!"
+            "message" => "Product added to cart!",
+            "newTotalPrice" => $newCartTotalPrice["total_price"]
         ]);
         exit;
     }

@@ -99,4 +99,22 @@ class CartItems extends Base
 
         return true;
     }
+
+    public function sumItemsFromCart($cart_id)
+    {
+        $query = $this->db->prepare("
+            SELECT 
+                SUM(price * quantity) total_price
+            FROM
+                cart_items
+            WHERE
+                cart_id = ?;
+        ");
+
+        $query->execute([
+            $cart_id
+        ]);
+
+        return $query->fetch();
+    }
 }
