@@ -61,9 +61,12 @@
                             require_once("models/carts.php");
                             $modelCarts = new Carts();
                             $userActiveCart = $modelCarts->getUserActiveCart($_SESSION["user_id"]);
-                            $cartItemsCount = $modelCarts->countCartItemsFromCart($userActiveCart["id"]);
+                            if ($userActiveCart)
+                            {
+                                $cartItemsCount = $modelCarts->countCartItemsFromCart($userActiveCart["id"]);
+                            }
                             
-                            echo $cartItemsCount["total_cart_items"];
+                            echo $cartItemsCount["total_cart_items"] ?? 0;
                         }
                     ?>
                 </span>

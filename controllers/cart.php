@@ -12,9 +12,12 @@ if ( isset($_SESSION["user_id"]) )
 {
     $userActiveCart = $modelCarts->getUserActiveCart($_SESSION["user_id"]);
     
-    $cartItems = $modelCartItems->getCartItemInCart($userActiveCart["id"]);
-
-    $cartTotalPrice = $modelCartItems->sumItemsFromCart($userActiveCart["id"]);
+    if ($userActiveCart)
+    {
+        $cartItems = $modelCartItems->getCartItemInCart($userActiveCart["id"]);
+        
+        $cartTotalPrice = $modelCartItems->sumItemsFromCart($userActiveCart["id"]);
+    }
 }
 
 $content = "views/cart.php";

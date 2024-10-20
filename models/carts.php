@@ -61,6 +61,22 @@ class Carts extends Base
         return $query->fetchAll();
     }
 
+    public function updateCartStatus($cart_id)
+    {
+        $query = $this->db->prepare("
+            UPDATE
+                carts
+            SET
+                cart_status = 'inactive'
+            WHERE
+                id = ?;
+        ");
+
+        $query->execute([
+            $cart_id
+        ]);
+    }
+
     public function countCartItemsFromCart($cart_id)
     {
         $query = $this->db->prepare("
@@ -86,7 +102,8 @@ class Carts extends Base
 
         if ( !$userCart )
         {
-            $userCart = $this->createCart($user_id);
+            $this->createCart($user_id);
+            $userCart = $this->getUserActiveCart($user_id);
         }
 
         $cartItems = new CartItems();

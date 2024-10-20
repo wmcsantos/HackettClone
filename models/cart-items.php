@@ -45,6 +45,25 @@ class CartItems extends Base
 
         return $query->fetchAll();
     }
+
+    public function getCartItemsInCart($cart_id)
+    {
+        $query = $this->db->prepare("
+            SELECT 
+                product_variant_id, quantity, price
+            FROM 
+                cart_items
+            WHERE 
+                cart_id = ?;
+        ");
+
+        $query->execute([
+            $cart_id
+        ]);
+
+        return $query->fetchAll();
+    }
+
     public function createCartItem($cart_id, $product_variant_id, $quantity, $price)
     {
         $query = $this->db->prepare("
@@ -82,6 +101,20 @@ class CartItems extends Base
         ]);
 
         return $query->fetch();
+    }
+
+    public function deleteCartItemsFromCart($cart_id)
+    {
+        $query = $this->db->prepare("
+            DELETE FROM
+                cart_items
+            WHERE
+                cart_id = ?;
+        ");
+
+        $query->execute([
+            $cart_id
+        ]);
     }
 
     public function removeItemFromCart($cart_item_id)

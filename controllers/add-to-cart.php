@@ -48,11 +48,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
     $quantity = $data["quantity"] ?? 1;
     $productVariantPrice = $productVariant["price"] ?? 0;
-    $userActiveCart = $modelCarts->getUserActiveCart($_SESSION["user_id"]);
     
     
     if ( $modelCarts->addToCart($_SESSION["user_id"], $productVariantId, $quantity, $productVariantPrice) )
     {
+        $userActiveCart = $modelCarts->getUserActiveCart($_SESSION["user_id"]);
         // Calculate new cart total price after adding the product to the cart
         $newCartTotalPrice = $modelCartItems->sumItemsFromCart($userActiveCart["id"]);
         
