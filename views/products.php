@@ -244,7 +244,7 @@
                                             <a href="javascript:void(0);">
                                                 <img 
                                                     class="border border-gray-200 h-full" 
-                                                    src="<?=ROOT?>/<?= $variant["color_image_url"] ?>" 
+                                                    src="<?=ROOT?><?= $variant["color_image_url"] ?>" 
                                                     alt=""
                                                     onclick="changeImage('<?= $variant['product_id'] ?>', '<?= $variant['code'] ?>', '<?= $variant['photo_image_url'] ?>')"
                                                 />

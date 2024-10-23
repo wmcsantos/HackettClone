@@ -4,6 +4,23 @@ require_once("base.php");
 
 class Products extends Base
 {
+    public function createProduct($name, $reference1)
+    {
+        $query = $this->db->prepare("
+            INSERT INTO
+                products (name, reference1)
+            VALUES
+                (?, ?);
+        ");
+
+        $query->execute([
+            $name,
+            $reference1
+        ]);
+
+        return $this->db->lastInsertId();
+    }
+
     public function getProducts() 
     {
         $query = $this->db->prepare("
@@ -41,21 +58,25 @@ class Products extends Base
         return $query->fetch();
     }
 
-    public function getProductVariant($product_id, $size_id, $color_products_id)
+    public function getProductVariant($product_id, $size_id, $color_id)
     {
         $query = $this->db->prepare("
             SELECT
-                id, price
+                c1.id, c1.price
             FROM
-                product_variants
+                product_variants as c1
+            INNER JOIN 
+                color_products as c2
+            ON
+                c1.color_products_id = c2.id
             WHERE
-                product_id = ? AND size_id = ? AND color_products_id = ?;
+                c1.product_id = ? AND c1.size_id = ? AND c2.color_id = ?;
         ");
 
         $query->execute([
             $product_id,
             $size_id,
-            $color_products_id
+            $color_id
         ]);
 
         return $query->fetch();

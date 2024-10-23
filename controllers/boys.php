@@ -41,11 +41,14 @@ if(empty($url_parts[3])) // In case the URL does not have the id of the product
     $modelCartItems = new CartItems();
     $modelCarts = new Carts();
 
-    $userActiveCart = $modelCarts->getUserActiveCart($_SESSION["user_id"]);
-
-    if ($userActiveCart)
-    {
-        $cartItems = $modelCartItems->getCartItemInCart($userActiveCart["id"]);
+    if (isset($_SESSION["user_id"]))
+    {   
+        $userActiveCart = $modelCarts->getUserActiveCart($_SESSION["user_id"]);
+        
+        if ($userActiveCart)
+        {
+            $cartItems = $modelCartItems->getCartItemInCart($userActiveCart["id"]);
+        }
     }
 
     $content = "views/productdetail.php";

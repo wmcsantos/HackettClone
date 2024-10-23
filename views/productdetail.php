@@ -89,7 +89,7 @@
                         ?>
                                 <li class="<?= $border ?> pb-1">
                                     <a href="?color=<?= $color["code"] ?>" class="color-option" data-color-id="<?= $color["color_id"] ?>" data-default-color-id="<?= $currentColor === $color["code"]  ? $color["color_id"] : "" ?>">
-                                        <img class="border border-gray-200 h-full" src="<?=ROOT?>/<?= $color["image_url"] ?>" alt="">
+                                        <img class="border border-gray-200 h-full" src="<?=ROOT?><?= $color["image_url"] ?>" alt="">
                                     </a>
                                 </li>
                         <?php } ?>

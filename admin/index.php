@@ -13,6 +13,8 @@
 <?php 
 session_start();
 
+define("ENV", parse_ini_file("../.env") );
+
 define("ROOT", "/admin");
 
 $url_parts = explode('/', $_SERVER['REQUEST_URI']); //super variavel PHP tem 6 ($_POST, $_GET, ...)
