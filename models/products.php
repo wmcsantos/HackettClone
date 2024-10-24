@@ -86,7 +86,7 @@ class Products extends Base
     {
         $query = $this->db->prepare("
             SELECT 
-                c1.image_url, c1.position, c3.code
+                c2.id, c1.image_url, c1.position, c3.code
             FROM 
                 product_images as c1
             JOIN

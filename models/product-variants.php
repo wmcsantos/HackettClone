@@ -21,4 +21,22 @@ class ProductVariants extends Base
 
         return $this->db->lastInsertId();
     }
+
+    public function getProductSizesStock($color_products_id)
+    {
+        $query = $this->db->prepare("
+            SELECT 
+                size_id, stock
+            FROM
+                product_variants
+            WHERE
+                color_products_id = ?;
+        ");
+
+        $query->execute([
+            $color_products_id
+        ]);
+
+        return $query->fetchAll();
+    }
 }

@@ -20,4 +20,21 @@ class ColorProducts extends Base
 
         return $this->db->lastInsertId();
     }
+
+    public function getProductColorId($product_id, $color_id)
+    {
+        $query = $this->db->prepare("
+            SELECT 
+                id
+            FROM
+                color_products
+            WHERE
+                product_id = ? AND color_id = ?;
+        ");
+
+        $query->execute([
+            $product_id, 
+            $color_id
+        ]);
+    }
 }

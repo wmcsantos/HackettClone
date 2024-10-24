@@ -1,6 +1,7 @@
 <?php
 
 require_once("./models/products.php");
+require_once("models/product-variants.php");
 require_once("models/cart-items.php");
 require_once("models/carts.php");
 
@@ -16,6 +17,7 @@ $subcategory = str_replace('-', ' ', $url_parts[2]);
 
 // Instances of the models required
 $modelProducts = new Products();
+$modelProductVariants = new ProductVariants();
 $modelCategories = new Categories();
 
 if(empty($url_parts[3])) // In case the URL does not have the id of the product
@@ -32,9 +34,9 @@ if(empty($url_parts[3])) // In case the URL does not have the id of the product
     $color_code = $_GET['color'] ?? null;
 
     $productColors = $modelProducts->getProductColors($url_parts[3]);
-    $productSizes = $modelProducts->getProductSizes();
     $productInfo = $modelProducts->getProductById($url_parts[3]);
     $productImages = $modelProducts->getProductImages($color_code, $url_parts[3]);
+    $productSizes = $modelProductVariants->getProductSizesStock($productImages[0]["id"]);
 
     // Instances of the models required
     $modelCartItems = new CartItems();
