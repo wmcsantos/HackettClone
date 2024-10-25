@@ -5,6 +5,7 @@ require_once("models/carts.php");
 require_once("models/users.php");
 require_once("models/orders.php");
 require_once("models/order-items.php");
+require_once("views/templates/sending-email.php");
 
 // Page title to be displayed in the tab of the browser
 $pageTitle = "Checkout Page | Hackett";
@@ -74,7 +75,9 @@ if ( isset($_SESSION["user_id"]) )
                 $orderStatusMessage = "Payment Accepted. Order is being processed. You will receive an email with the details of the order";
                 
                 $_SESSION['orderStatusMessage'] = $orderStatusMessage;
+
                 header(sprintf("Location: %s/", ROOT));
+                sendOrderConfirmation($_POST["customer-email"], $_POST["customer-first-name"], $cartItems, $cartTotalPrice);
             } else
             {
                 $registrationStatusMessage = "Error while processing the order. Please try again!";
