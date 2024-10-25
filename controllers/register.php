@@ -40,6 +40,7 @@ if (strtoupper($_SERVER["REQUEST_METHOD"]) === "POST")
             mb_strlen($_POST["customer-password"]) <= 1000 &&
             filter_var($_POST["customer-email"], FILTER_SANITIZE_EMAIL) &&
             filter_var($_POST["customer-email"], FILTER_VALIDATE_EMAIL) &&
+            $modelUser->isEmailAvailable($_POST["customer-email"]) &&
             $_POST["customer-password"] === $_POST["customer-confirm-password"]
         ) {
             $user = $modelUser->createUser($userData);

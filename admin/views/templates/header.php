@@ -15,5 +15,13 @@
         <svg class="w-3 h-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1"/>
         </svg>
+        <div class="flex items-center relative overflow-hidden">
+            <p class="text-center m-4 text-black text-md font-medium"><?= isset($_SESSION["user_name"]) ? $_SESSION["user_name"] : '' ?></p>
+            <a href="<?php echo isset($_SESSION['user_name']) ? ROOT . '/account' : ROOT . '/login' ?>">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4ZM10 13C7.79086 13 6 14.7909 6 17V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V17C18 14.7909 16.2091 13 14 13H10Z" fill="#383838"/>
+                </svg>
+            </a>
+        </div>
     </div>
 </header>

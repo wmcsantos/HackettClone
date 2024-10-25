@@ -57,8 +57,9 @@
                                 </div>
                             </div>
                             <div class="w-full sm:w-1/2 relative group">
-                                <input type="text" name="customer-email" required minlength="3" maxlength="252" class="border-b w-full h-10 px-4 text-sm peer outline-none">
+                                <input type="text" name="customer-email" id="customer-email" required minlength="3" maxlength="252" class="border-b w-full h-10 px-4 text-sm peer outline-none">
                                 <label for="customer-email" class="h-10 transform transition-all absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0">Email</label>
+                                <p id="email-status" class="text-red-800"></p>
                             </div>
                         </div>
                         <div class="flex flex-col sm:flex-row gap-12 w-full mt-12 mb-6">
@@ -82,4 +83,35 @@
             <img src="<?=ROOT?>/images/hackett-logo-footer.webp" alt="Hackett Logo Footer" class="bg-contain h-32 mx-auto">
         </div>
     </body>
+    <script>
+        document.getElementById("customer-email").addEventListener("input", function() {
+            const email = this.value;
+            const statusMessage = document.getElementById("email-status");
+
+            if (email.length > 3) 
+            {
+                fetch("/check-email-availability", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: "email=" + encodeURIComponent(email)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.available) 
+                    {
+                        statusMessage.textContent = "Email is available.";
+                        statusMessage.style.color = "green";
+                    } else {
+                        statusMessage.textContent = "Email is already registered.";
+                        statusMessage.style.color = "text-red-800";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+            } else {
+                statusMessage.textContent = "";
+            }
+        });
+    </script>
 </html>

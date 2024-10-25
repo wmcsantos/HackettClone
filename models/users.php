@@ -124,4 +124,19 @@ class Users extends Base
 
         return [];
     }
+
+    public function isEmailAvailable($email) {
+        $query = $this->db->prepare("
+            SELECT 
+                COUNT(*) 
+            FROM 
+                users 
+                WHERE email = ?");
+        
+        $query->execute([$email]);
+
+        $count = $query->fetchColumn();
+        
+        return $count == 0;
+    }
 }

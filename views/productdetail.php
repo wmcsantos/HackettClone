@@ -26,7 +26,6 @@
     </style>
     <body class="bg-white">
         <?php require_once("templates/header.php") ?>
-        <?php print_r($productSizes) ?>
         <div class="flex">
             <div id="product-images" class="w-3/5">
                 <div class="grid grid-cols-8 gap-2">
