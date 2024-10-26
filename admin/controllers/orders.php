@@ -1,3 +1,5 @@
 <?php
 
-require("views/orders.php");
+$pageTitle = "Orders | Hackett";
+
+$content = "views/orders.php";

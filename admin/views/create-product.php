@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hackett London - Insert New Product</title>
-</head>
-<body>
-    <?php require("templates/sidebar.php") ?>
-    <div class="grow">
-        <?php require("templates/header.php") ?>
-        
-        <div class="relative px-4 mt-6">
+<?php require("templates/header.php") ?>
+<div class="flex h-full grow">
+        <?php require("templates/sidebar.php") ?>
+        <div class="relative px-4 mt-6 w-4/5">
             <h1 class="text-2xl mb-4">Insert Product</h1>
             <form class="max-w-lg mx-auto" method="POST" action="<?= ROOT ?>/insert-product" enctype="multipart/form-data">
                 <div class="mb-5">

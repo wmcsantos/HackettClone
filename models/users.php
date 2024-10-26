@@ -125,18 +125,44 @@ class Users extends Base
         return [];
     }
 
-    public function isEmailAvailable($email) {
+    public function loginAdmin($data) 
+    {
         $query = $this->db->prepare("
             SELECT 
+                id, first_name, email, password_hash
+            FROM 
+                users
+            WHERE
+                email = ? AND is_admin = 1;
+        ");
+
+        $query->execute([
+            $data["email"]
+        ]);
+
+        
+        $user = $query->fetch();
+
+        if ( !empty($user) && password_verify($data["password"], $user["password_hash"]) )
+        {
+            return $user;
+        }
+
+        return [];
+    }
+
+    public function isEmailAvailable($email) {
+        $query = $this->db->prepare("
+            SELECT  
                 COUNT(*) 
             FROM 
                 users 
-                WHERE email = ?");
+            WHERE 
+                email = :email");
+        $query->execute(["email" => $email]);
         
-        $query->execute([$email]);
-
         $count = $query->fetchColumn();
-        
+
         return $count == 0;
     }
 }

@@ -1,3 +1,5 @@
 <?php
 
-require("views/products.php");
+$pageTitle = "Manage Products | Hackett";
+
+$content = "views/products.php";

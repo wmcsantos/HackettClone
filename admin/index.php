@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hackett London</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
-    
-</body>
-</html>
 <?php 
 session_start();
 
@@ -22,15 +10,29 @@ $url_parts = explode('/', $_SERVER['REQUEST_URI']); //super variavel PHP tem 6 (
 $controller = $url_parts[2];
 
 if(empty($controller)) {
-    $controller = "overview";
+    $controller = "login";
 }
 
 if(!empty($url_parts[3])) {
     $id = $url_parts[3];
 }
 
-// var_dump($controller);
+// Check if the user is logged in for routes other than login
+if ($controller !== "login" && empty($_SESSION["admin_id"]))
+{
+    // Redirect to login page if the user is not logged in
+    header("Location: /admin/login");
+    exit();
+}
 
 require("controllers/" . $controller . ".php");
+
+// Load the layout
+$content = isset($content) ? $content : "views/overview.php";
+
+if($controller !== "subcategories")
+{
+    require("layout.php");
+}
 
 ?>
