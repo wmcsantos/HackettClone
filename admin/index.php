@@ -1,4 +1,5 @@
 <?php 
+session_name("admin_session");
 session_start();
 
 define("ENV", parse_ini_file("../.env") );
