@@ -58,7 +58,7 @@
                             </div>
                             <div class="w-full sm:w-1/2 relative group">
                                 <input type="text" name="customer-email" id="customer-email" required minlength="3" maxlength="252" class="border-b w-full h-10 px-4 text-sm peer outline-none">
-                                <label for="customer-email" class="h-10 transform transition-all absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0">Email</label>
+                                <label for="customer-email" class="transform transition-all absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0">Email</label>
                                 <p id="email-status" class="text-red-800"></p>
                             </div>
                         </div>
