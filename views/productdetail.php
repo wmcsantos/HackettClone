@@ -26,6 +26,13 @@
     </style>
     <body class="bg-white">
         <?php require_once("templates/header.php") ?>
+        <!-- Modal -->
+        <div id="message-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+            <div class="flex flex-col bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+                    <p id="modal-message" class="text-[#1f2134]"></p>
+                    <button id="modal-login-btn" class="uppercase text-center text-sm p-2 bg-[#1f2134] text-white tracking-wider mt-6 mx-6 hover:bg-white hover:text-[#1f2134] border-2 border-[#1f2134] transition-all duration-300">Log In</button>
+                </div>
+            </div>
         <div class="flex">
             <div id="product-images" class="w-3/5">
                 <div class="grid grid-cols-8 gap-2">
@@ -198,6 +205,33 @@
         const cartDrawer = document.getElementById("cart-drawer");
         const closeCartDrawer = document.getElementById("close-cart-drawer");
 
+        // Select modal elements
+        const messageModal = document.getElementById("message-modal");
+        const modalMessage = document.getElementById("modal-message");
+        const modalLoginBtn = document.getElementById("modal-login-btn");
+
+        // Function to show the modal
+        function showModal(message) {
+            modalMessage.textContent = message;
+            messageModal.classList.remove("hidden");
+        }
+
+        modalLoginBtn.addEventListener("click", () => {
+            window.location.href = "/login";
+        });
+
+        // Close modal function
+        function closeModal() {
+            messageModal.classList.add("hidden");
+        }
+
+        // Close modal when clicking outside of the modal content
+        messageModal.addEventListener("click", (event) => {
+            if (event.target === messageModal) {
+                closeModal();
+            }
+        });
+
         window.onload = function() {
 
             if (defaultColorElement) {
@@ -330,6 +364,9 @@
 
                     // Update subtotal price
                     updateSubTotalCartPrice(data.newTotalPrice);
+                } else {
+                    console.log(data.message);
+                    showModal(data.message);
                 }
             })
             .catch((error) => {

@@ -23,11 +23,15 @@ if ( isset($_SESSION["user_id"]) )
 
     $userActiveCart = $modelCarts->getUserActiveCart($_SESSION["user_id"]);
     
-    $cartItems = $modelCartItems->getCartItemInCart($userActiveCart["id"]);
+    if ( $userActiveCart )
+    {
 
-    $cartItemToInsertInOrderItems = $modelCartItems->getCartItemsInCart($userActiveCart["id"]);
-
-    $cartTotalPrice = $modelCartItems->sumItemsFromCart($userActiveCart["id"]);
+        $cartItems = $modelCartItems->getCartItemInCart($userActiveCart["id"]);
+        
+        $cartItemToInsertInOrderItems = $modelCartItems->getCartItemsInCart($userActiveCart["id"]);
+        
+        $cartTotalPrice = $modelCartItems->sumItemsFromCart($userActiveCart["id"]);
+    }
     
     $content = "views/checkout.php";
 
@@ -76,7 +80,7 @@ if ( isset($_SESSION["user_id"]) )
                 
                 $_SESSION['orderStatusMessage'] = $orderStatusMessage;
 
-                header(sprintf("Location: %s/", ROOT));
+                header(sprintf("Location: %s/orders", ROOT));
                 sendOrderConfirmation($_POST["customer-email"], $_POST["customer-first-name"], $cartItems, $cartTotalPrice);
             } else
             {
