@@ -27,6 +27,7 @@
             <div id="register" class="w-full lg:w-1/2 bg-white justify-center px-32 md:px-14 pb-14 lg:block">
                 <h2 class="my-14 text-center font-semibold tracking-[0.25rem] uppercase text-[#1f2134]">Registered</h2>
                 <form method="post" action="<?=ROOT?>/login">
+                    <input type="hidden" name="csrf_token" value="<?= $csrfToken ?>">
                     <div class="h-12 mb-14">
                         <label class="flex h-full border-b border-slate-400 py-2">
                             <input class="w-full appearance-none bg-transparent border-none leading-tight focus:outline-none" type="email" name="email" required placeholder="Email">

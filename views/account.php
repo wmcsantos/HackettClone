@@ -30,6 +30,7 @@
                         <p class="uppercase text-[#0e0f0f] tracking-[0.15rem] text-sm font-medium">Personal details</p>
                         <div class="border border-gray-200 py-8 px-4 mt-8">
                             <form action="<?=ROOT?>/account" method="post">
+                                <input type="hidden" name="csrf_token" value="<?= $csrfToken ?>">
                                 <fieldset>
                                     <div class="flex flex-col w-full sm:w-1/2">
                                         <label class="text-sm" for="customer-title">
@@ -93,6 +94,7 @@
                         <p class="uppercase text-[#0e0f0f] tracking-[0.15rem] text-sm font-medium">Privacy</p>
                         <div class="border border-gray-200 py-8 px-4 mt-8">
                             <form action="<?=ROOT?>/account" method="post">
+                                <input type="hidden" name="csrf_token" value="<?= $csrfToken ?>">
                                 <fieldset>
                                     <div class="flex flex-col sm:flex-row gap-12 w-full mt-12 mb-6">
                                         <div class="w-full sm:w-1/2 relative group">

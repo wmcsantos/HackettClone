@@ -12,6 +12,7 @@
             <div>
                 <p class="text-xs text-[#1f2134] my-4">Your personal dat is safe with us. We will never share it.</p>
                 <form action="<?=ROOT?>/register" method="post">
+                    <input type="hidden" name="csrf_token" value="<?= $csrfToken ?>">
                     <fieldset>
                         <div class="flex flex-col w-full sm:w-1/2">
                             <label class="text-sm" for="customer-title">
@@ -88,11 +89,17 @@
             const email = this.value;
             const statusMessage = document.getElementById("email-status");
 
+            // Fetch the CSRF token from the meta tag if it exists
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
             if (email.length > 3) 
             {
                 fetch("/check-email-availability", {
                     method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    headers: { 
+                        "Content-Type": "application/x-www-form-urlencoded", 
+                        "CSRF-Token": csrfToken
+                    },
                     body: "email=" + encodeURIComponent(email)
                 })
                 .then(response => response.json())

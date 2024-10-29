@@ -194,6 +194,10 @@
 
     </body>
     <script>
+
+        // Fetch the CSRF token from the meta tag if it exists
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
         const urlParams = new URLSearchParams(window.location.search);
         let selectedColor = urlParams.get('color') || null;
         let selectedSize = urlParams.get('size') || null;
@@ -295,6 +299,7 @@
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
+                    "CSRF-Token": csrfToken
                 }
             })
             .then( response => response.json() )
@@ -347,6 +352,7 @@
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "CSRF-Token": csrfToken
                 },
                 body: JSON.stringify(data)
             })
@@ -387,6 +393,7 @@
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
+                    "CSRF-Token": csrfToken
                 }
             })
             .then(response => response.json())

@@ -60,6 +60,7 @@
                     <div id="billing-address" class="basis-1/2 capitalize">
                         <p class="text-lg p-2 mb-6 bg-[#1e2134] text-white">Billing address</p>
                         <form action="/checkout" method="post" class="text-[#323232]">
+                            <input type="hidden" name="csrf_token" value="<?= $csrfToken ?>">
                             <fieldset>
                                 <div class="flex flex-col w-full">
                                     <input type="text" name="customer-address" class="border-b w-full h-10 text-sm outline-none" required minlength="3" maxlength="200" placeholder="Address Name">

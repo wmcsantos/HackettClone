@@ -125,10 +125,15 @@
 
                     cartItemCard.appendChild(slidingPane);
 
+                    // Fetch the CSRF token from the meta tag if it exists
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                    console.log(csrfToken);
+                    
                     fetch("/remove-from-cart", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
+                            "CSRF-Token": csrfToken
                         },
                         body: JSON.stringify({ cartItemId })
                     })

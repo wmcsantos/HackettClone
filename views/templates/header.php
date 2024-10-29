@@ -154,10 +154,15 @@
             
             if ( dropdown.innerHTML.trim() === '' )
             {
+
+                // Fetch the CSRF token from the meta tag if it exists
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
                 fetch('/subcategories', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        "CSRF-Token": csrfToken
                     },
                     body: new URLSearchParams({
                         parent_id: categoryId.split('-')[1]
