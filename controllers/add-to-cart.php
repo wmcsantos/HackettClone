@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
             "success" => false,
             "message" => "You need to be logged in to add products to your bag!"
         ]);
+        http_response_code(401);
         exit;
     }
 
@@ -45,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
             "success" => false,
             "message" => "Please select a size"
         ]);
+        http_response_code(400);
         exit;
     }
 
@@ -58,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
             "success" => false,
             "message" => "Product Variant Not Found"
         ]);
+        http_response_code(400);
         exit;
     }
 
@@ -84,6 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
             "message" => "Product added to cart!",
             "newTotalPrice" => $newCartTotalPrice["total_price"]
         ]);
+        http_response_code(200);
         exit;
     }
 
@@ -91,5 +95,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         "success" => false,
         "message" => "Error adding product to cart"
     ]);
+    http_response_code(400);
     exit;
 }

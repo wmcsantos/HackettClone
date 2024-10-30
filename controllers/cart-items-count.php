@@ -11,6 +11,7 @@ if ( !isset($_SESSION["user_id"]) )
         "success" => false,
         "message" => "User not logged in!"
     ]);
+    http_response_code(401);
     exit;
 }
 // Instance of the model required
@@ -26,4 +27,5 @@ echo json_encode([
     "success" => true,
     "count" => $cartItemsCount["total_cart_items"] ?? 0
 ]);
+http_response_code(200);
 exit;

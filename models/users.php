@@ -143,6 +143,12 @@ class Users extends Base
         
         $user = $query->fetch();
 
+        // Conditional statement that checks if user is admin
+        if (empty($user))
+        {
+            return "Not an Admin";
+        }
+
         if ( !empty($user) && password_verify($data["password"], $user["password_hash"]) )
         {
             return $user;

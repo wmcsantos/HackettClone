@@ -7,6 +7,13 @@
         <p class="w-full pb-2 text-xs text-center border-b text-[#1f2134] border-[#1f2134] uppercase">Restricted area only accessible to staff</p>
     </div>
 </div>
+<!-- Indication of a failed login -->
+<?php 
+    if (isset($_SESSION['loginStatusMessage'])) {
+        echo "<p class='text-center m-4 text-red-800 text-md font-medium'>{$_SESSION['loginStatusMessage']}</p>";
+        unset($_SESSION['loginStatusMessage']);
+    }
+?>
 <div class="flex w-full lg:w-5/6 gap-4 mx-auto text-sm lg:mt-10">
     <div id="register" class="w-full bg-white justify-center px-32 md:px-14 pb-14 lg:block">
         <h2 class="my-14 text-center font-semibold tracking-[0.25rem] uppercase text-[#1f2134]">Admin | Employees</h2>

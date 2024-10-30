@@ -108,4 +108,7 @@ if ( isset($_SESSION["user_id"]) )
             }
         }
     }
+} else {
+    // Redirect to login page if the user is not logged in
+    header("Location: /login");
 }

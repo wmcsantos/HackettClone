@@ -61,6 +61,7 @@ if (strtoupper($_SERVER["REQUEST_METHOD"]) === "POST")
             
             // Session variable with the registration message to indicate the user about the success of the registratration
             $_SESSION['registrationStatusMessage'] = $registrationStatusMessage;
+            http_response_code(201);
 
             // Redirect newly registered user to the login area
             header(sprintf("Location: %s/login/", ROOT));
@@ -68,6 +69,10 @@ if (strtoupper($_SERVER["REQUEST_METHOD"]) === "POST")
         {
             $registrationStatusMessage = "Error while creating an account. Please try again!";
             http_response_code(400);
+
+            // Redirect to the account page to prevent re-submission on refresh
+            header("Location: /register");
+            exit;
         }
     }
 }

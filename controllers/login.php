@@ -49,9 +49,13 @@ if (strtoupper($_SERVER["REQUEST_METHOD"]) === "POST")
                 $_SESSION["user_title"] = $user["title"];
                 $_SESSION["user_name"] = $user["first_name"];
 
+                http_response_code(200);
                 // Redirect user to the cart view
                 header(sprintf("Location: %s/cart/", ROOT));
+            } else {
+                $_SESSION['loginStatusMessage'] = "User credentials username/password are incorrect";
+                http_response_code(401);
             }
-        }
+        } 
     }
 }

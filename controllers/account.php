@@ -5,6 +5,12 @@ require_once("models/users.php");
 // Page title to be displayed in the tab of the browser
 $pageTitle = "My Account | Hackett";
 
+if (empty($_SESSION["user_id"]))
+{
+    // Redirect to login page if the user is not logged in
+    header("Location: /login");
+}
+
 // View respecting the account controller
 $content = "views/account.php";
 
@@ -58,10 +64,19 @@ if (strtoupper($_SERVER["REQUEST_METHOD"]) === "POST")
             
             // Session variable to inform user about the success of the update
             $_SESSION['updateStatusMessage'] = $updateStatusMessage;
+            http_response_code(200);
+
+            // Redirect to the account page to prevent re-submission on refresh
+            header("Location: /account");
+            exit;
         } else
         {
             $updateStatusMessage = "Error while updating the account. Please try again!";
             http_response_code(400);
+
+            // Redirect to the account page to prevent re-submission on refresh
+            header("Location: /account");
+            exit;
         }
     }
 
@@ -97,15 +112,25 @@ if (strtoupper($_SERVER["REQUEST_METHOD"]) === "POST")
             $_POST["confirm-new-password"] === $_POST["new-password"]
         ) {
             // Update user's password
-            $user = $modelUsers->updateUserPassword($userData, $_SESSION["user_id"]);
+            $userPassword = $modelUsers->updateUserPassword($userData, $_SESSION["user_id"]);
             $updateStatusMessage = "Account details updated succesfully.";
             
             // Session variable to inform user about the success of the update
             $_SESSION['updateStatusMessage'] = $updateStatusMessage;
+            http_response_code(200);
+
+            // Redirect to the account page to prevent re-submission on refresh
+            header("Location: /account");
+            exit;
         } else
         {
             $updateStatusMessage = "Error while updating the account. Please try again!";
+            $_SESSION['updateStatusMessage'] = $updateStatusMessage;
             http_response_code(400);
+
+            // Redirect to the account page to prevent re-submission on refresh
+            header("Location: /account");
+            exit;
         }
     }
 }

@@ -6,11 +6,11 @@
     </head>
     <body class="bg-gray-100">
         <?php require_once("templates/header.php") ?>
-            <!-- Indication of a succesfull registration in case the user has done the registration -->
+            <!-- Indication of a failed login -->
             <?php 
-                if (isset($_SESSION['registrationStatusMessage'])) {
-                    echo "<p class='text-center m-4 text-red-800 text-md font-medium'>{$_SESSION['registrationStatusMessage']}</p>";
-                    unset($_SESSION['registrationStatusMessage']);
+                if (isset($_SESSION['loginStatusMessage'])) {
+                    echo "<p class='text-center m-4 text-red-800 text-md font-medium'>{$_SESSION['loginStatusMessage']}</p>";
+                    unset($_SESSION['loginStatusMessage']);
                 }
             ?>
         <div class="flex mt-10 lg:hidden">

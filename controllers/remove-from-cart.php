@@ -38,6 +38,7 @@ if ( $_SERVER["REQUEST_METHOD"] === "POST" )
             "success" => false,
             "message" => "Invalid request."
         ]);
+        http_response_code(404);
         exit;
     }
 
@@ -66,11 +67,13 @@ if ( $_SERVER["REQUEST_METHOD"] === "POST" )
             "newCartQuantity" => $newCartQuantity,
             "newTotalPrice" => $newCartTotalPrice["total_price"]
         ]);
+        http_response_code(200);
     } else {
         echo json_encode([
             "success" => false,
             "message" => "Error removing item."
         ]);
+        http_response_code(400);
     }
 }
 exit;

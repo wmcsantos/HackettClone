@@ -28,11 +28,31 @@ if (strtoupper($_SERVER["REQUEST_METHOD"]) === "POST")
             ) {
 
             $user = $modelUsers->loginAdmin($userData);
+
+            if ($user == "Not an Admin")
+            {
+                $_SESSION['loginStatusMessage'] = "User is not an administrator";
+                http_response_code(403);
+
+                // Redirect to the account page to prevent re-submission on refresh
+                header("Location: /admin/login");
+                exit;
+            }
             
             if ($user) {
                 $_SESSION["admin_id"] = $user["id"];
                 $_SESSION["admin_name"] = $user["first_name"];
+
+                http_response_code(200);
+                // Redirect admin to the overview view
                 header(sprintf("Location: %s/overview/", ROOT));
+            } else {
+                $_SESSION['loginStatusMessage'] = "User credentials username/password are incorrect";
+                http_response_code(401);
+
+                // Redirect to the account page to prevent re-submission on refresh
+                header("Location: /admin/login");
+                exit;
             }
         }
     }

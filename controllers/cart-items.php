@@ -20,5 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         'success' => true,
         'items' => $cartItems,
     ]);
+    http_response_code(200);
     exit;
 }
