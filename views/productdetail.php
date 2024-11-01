@@ -168,6 +168,8 @@
         <div class="mt-16 bg-white mx-auto py-10">
             <img src="<?=ROOT?>/images/hackett-logo-footer.webp" alt="Hackett Logo Footer" class="bg-contain h-32 mx-auto">
         </div>
+        <!-- Overlay When Cart Drawer is Open -->
+        <div id="overlay" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden z-40"></div>
         <!-- Shopping Cart Drawer -->
         <div id="cart-drawer" class="fixed top-16 right-0 w-[400px] h-full bg-white transform translate-x-full transition-transform duration-300 ease-in-out z-50">
             <div class="p-6 pb-0 flex justify-between items-center">
@@ -208,6 +210,7 @@
 
         const cartDrawer = document.getElementById("cart-drawer");
         const closeCartDrawer = document.getElementById("close-cart-drawer");
+        const overlay = document.getElementById("overlay");
 
         // Select modal elements
         const messageModal = document.getElementById("message-modal");
@@ -321,15 +324,18 @@
         // Function to open the cart drawer
         function openCartDrawer() {
             cartDrawer.classList.add("open");
+            overlay.classList.remove("hidden");
         }
 
         // Function to close the cart drawer
         function closeCartDrawerHandler() {
             cartDrawer.classList.remove("open");
+            overlay.classList.add("hidden");
         }
 
         // Add click event to close button
         closeCartDrawer.addEventListener("click", closeCartDrawerHandler);
+        overlay.addEventListener("click", closeCartDrawerHandler);
 
         document.getElementById("add-to-cart").addEventListener("click", function(event) {
             event.preventDefault();
@@ -441,6 +447,45 @@
 
                         // Append the new item to the cart drawer
                         cartItemsContainer.insertAdjacentHTML('beforeend', cartItemHTML);
+
+                        const removeButtons = document.querySelectorAll("#remove-item");
+                        removeButtons.forEach( button => {
+                            button.addEventListener("click", function() {
+                                const cartItemId = this.dataset.cartItemId;
+                                const cartItemCard = document.getElementById(`cart-item-id-${cartItemId}`)
+                                
+                                // Fetch the CSRF token from the meta tag if it exists
+                                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                                
+                                fetch("/remove-from-cart", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "CSRF-Token": csrfToken
+                                    },
+                                    body: JSON.stringify({ cartItemId })
+                                })
+                                .then( response => response.json())
+                                .then( data => {
+                                    if ( data.success )
+                                    {
+                                        const cartQuantity = document.getElementById("cart-quantity");
+                                        cartQuantity.textContent = data.newCartQuantity ?? 0;
+
+                                        // Update total price
+                                        const cartTotalElements = document.querySelectorAll("#cart-total");
+                                        cartTotalElements.forEach( el => {
+                                            el.textContent = `€ ${data.newTotalPrice ?? 0}`
+                                        });
+
+                                        cartItemCard.remove();
+                                    }
+                                })
+                                .catch( error => {
+                                    console.error("Error: ", error);
+                                });
+                            });
+                        });
                     });
                 } else {
                     console.error("Failed to fetch cart items:", data.message);
@@ -450,6 +495,5 @@
                 console.error("Error fetching cart items:", error);
             });
         }
-
     </script>
 </html>
