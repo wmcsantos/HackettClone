@@ -6,7 +6,7 @@
     </head>
     <body class="bg-white">
         <?php require_once("templates/header.php") ?>
-        <h1 class="uppercase tracking-[0.25rem] mt-4 mb-12 text-center font-semibold text-3xl"><?= $category === 'view-all' ? $subcategory : $subcategory ?></h1>
+        <h1 class="uppercase tracking-[0.25rem] mt-4 mb-12 text-center font-semibold text-3xl"><?= $category === 'view-all' ? $subcategorySanitized : $subcategorySanitized ?></h1>
 
         <div class="relative">
             <div id="filters" class="flex h-12 justify-between border-t border-gray-400 uppercase text-xs font-semibold px-8">
@@ -221,7 +221,7 @@
                                 // Iterate through each variant with the same product_id
                                 foreach ($variants as $variant) {
                                 ?>
-                                    <a href="<?=ROOT?>/<?= $category ?>/<?= $subcategory ?>/<?= $productId ?>?color=<?= $variant["code"] ?>">
+                                    <a href="<?=ROOT?>/<?= $category ?>/<?= str_replace(' ', '-', $subcategory) ?>/<?= $productId ?>?color=<?= $variant["code"] ?>">
                                         <img
                                             id="photo_<?= $productId ?>"
                                             class="object-cover mb-2 h-auto w-full <?= $i == 0 ? "" : "hidden" ?>" 

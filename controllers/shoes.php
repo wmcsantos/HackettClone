@@ -15,7 +15,8 @@ $url_parts = explode('/', $_SERVER['REQUEST_URI']);
 $category = $url_parts[1];
 
 // Subcategory name (replace '-' with ' ')
-$subcategory = str_replace('-', ' ', $url_parts[2]);
+$subcategory = $url_parts[2];
+$subcategorySanitized = preg_replace('/(?<!\w)-|-(?!\w)/', ' ', $subcategory);
 
 // Instances of the models required
 $modelProducts = new Products();
@@ -24,7 +25,6 @@ $modelCategories = new Categories();
 
 if(empty($url_parts[3])) // In case the URL does not have the id of the product, show the product view
 {    
-    $subcategorySanitized = str_replace("-", " ", $subcategory);
     $categoryId = $modelCategories->getCategoryId($subcategorySanitized);
 
     $products = $modelProducts->getProductsByCategory($categoryId["id"]);
