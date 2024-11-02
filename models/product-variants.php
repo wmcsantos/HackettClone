@@ -30,7 +30,9 @@ class ProductVariants extends Base
             FROM
                 product_variants
             WHERE
-                color_products_id = ?;
+                color_products_id = ?
+            ORDER BY
+                size_id;
         ");
 
         $query->execute([
