@@ -11,6 +11,12 @@ $content = "views/login.php";
 // Instance of the model required
 $modelUsers = new Users();
 
+if (isset($_SESSION["user_id"]))
+{
+    // Redirect to account page if the user is already logged in
+    header("Location: /account");
+}
+
 // Conditional statement that deals with POST requests executed in login view
 if (strtoupper($_SERVER["REQUEST_METHOD"]) === "POST")
 {

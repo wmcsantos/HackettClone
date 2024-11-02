@@ -37,10 +37,14 @@
             <div class="flex flex-col items-center p-32">
                 <h1 class="text-gray-600 text-3xl font-serif font-extralight tracking-wider pb-8">Your bag is empty. Have you tried taking a look at our collection?</h1>
                 <p class="leading-8 text-sm">Registered with us, but, you can't see your items?</p>
-                <p class="leading-8 text-sm">Sign in to see your bag and get shopping!</p>
+                <?php if( !isset($_SESSION["user_id"])) { ?>
+                    <p class="leading-8 text-sm">Sign in to see your bag and get shopping!</p>
+                <?php } ?>
                 <div class="mt-8">
                     <a href="/" class="uppercase p-4 bg-[#1f2134] text-white text-sm tracking-wider my-6 hover:bg-white hover:text-[#1f2134] border-2 border-[#1f2134] transition-all duration-300">Continue shopping</a>
-                    <a href="/login" class="uppercase p-4 bg-[#1f2134] text-white text-sm tracking-wider my-6 hover:bg-white hover:text-[#1f2134] border-2 border-[#1f2134] transition-all duration-300">Sign in</a>
+                    <?php if( !isset($_SESSION["user_id"])) { ?>
+                        <a href="/login" class="uppercase p-4 bg-[#1f2134] text-white text-sm tracking-wider my-6 hover:bg-white hover:text-[#1f2134] border-2 border-[#1f2134] transition-all duration-300">Sign in</a>
+                    <?php } ?>
                 </div>
             </div>
         <?php } else { ?>
