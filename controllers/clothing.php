@@ -14,9 +14,20 @@ $url_parts = explode('/', $_SERVER['REQUEST_URI']);
 // Category name
 $category = $url_parts[1];
 
+$exceptions = ["t-shirts"];
+
+function sanitizeSubcategory($subcategory, $exceptions) {
+    // Check if the subcategory is in the exceptions list
+    if (in_array(strtolower($subcategory), $exceptions)) {
+        return $subcategory;
+    }
+    // Otherwise, replace hyphens with spaces
+    return str_replace("-", " ", $subcategory);
+}
+
 // Subcategory name (replace '-' with ' ')
 $subcategory = $url_parts[2];
-$subcategorySanitized = preg_replace('/(?<!\w)-|-(?!\w)/', ' ', $subcategory);
+$subcategorySanitized = sanitizeSubcategory($subcategory, $exceptions);
 
 // Instances of the models required
 $modelProducts = new Products();

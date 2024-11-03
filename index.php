@@ -1,7 +1,6 @@
 <?php 
-// phpinfo();
-ob_clean();
 session_start();
+ob_clean();
 
 function generateCSRFToken() {
     if (empty($_SESSION['csrf_token'])) {
@@ -11,7 +10,7 @@ function generateCSRFToken() {
 }
 
 function verifyCSRFToken($token) {
-    return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
+    return isset($token) && isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
 }
 
 $csrfToken = generateCSRFToken();

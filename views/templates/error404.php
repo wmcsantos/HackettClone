@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hackett London | 404</title>
-</head>
 <body>
     <?php require("header.php") ?>
     <div class="text-center">
@@ -15,4 +8,3 @@
         <a href="/" class="uppercase text-center p-4 hover:bg-[#1f2134] hover:text-white text-xs tracking-wider my-6 bg-white text-[#1f2134] border border-[#1f2134] transition-all duration-300">Return home</a>
     </div>
 </body>
-</html>

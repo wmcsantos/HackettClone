@@ -64,15 +64,15 @@ if (strtoupper($_SERVER["REQUEST_METHOD"]) === "POST")
             http_response_code(201);
 
             // Redirect newly registered user to the login area
-            header(sprintf("Location: %s/login/", ROOT));
+            header("Location: /login");
         } else
         {
             $registrationStatusMessage = "Error while creating an account. Please try again!";
             http_response_code(400);
 
             // Redirect to the account page to prevent re-submission on refresh
-            header("Location: /register");
-            exit;
+            // header("Location: /register");
+            // exit;
         }
     }
 }

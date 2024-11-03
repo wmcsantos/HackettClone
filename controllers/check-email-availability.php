@@ -5,13 +5,15 @@ require_once("models/users.php");
 // Conditional statement to deal with POST requests in the registration view
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
+    $data = json_decode(file_get_contents("php://input"), true);
+    $csrfToken = $data['csrf_token'] ?? '';
     // CSRF Verification
-    if (!verifyCSRFToken($_POST['csrf_token'])) {
+    if (!verifyCSRFToken($csrfToken)) {
         die('CSRF token validation failed');
     }
 
     // sanitize each element of the form to avoid XSS
-    $email = trim(htmlspecialchars(strip_tags($_POST["email"])));
+    $email = trim(htmlspecialchars(strip_tags($data["email"])));
     
     // Instance of the model required
     $modelUser = new Users();
