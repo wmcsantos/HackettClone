@@ -3,9 +3,17 @@
 
 This project aimed to clone an e-commerce website that sells clothing and accesories.
 
+<img width="1470" alt="Screenshot 2024-11-03 at 13 33 15" src="https://github.com/user-attachments/assets/f932957f-8b55-47cc-8c86-d075960f42c9">
+<img width="1470" alt="Screenshot 2024-11-03 at 14 34 58" src="https://github.com/user-attachments/assets/c7e957c1-2494-4f50-bf4a-ad88a93b9641">
+<img width="1470" alt="Screenshot 2024-11-03 at 13 37 27" src="https://github.com/user-attachments/assets/be997472-cf4f-4f5e-bbd4-ac5d54d855c2">
+
 The project is focused on the backend functionality but the frontend was also developed to comprehensively implement all the backend functionalities.
+<img width="1470" alt="Screenshot 2024-11-03 at 13 41 08" src="https://github.com/user-attachments/assets/084bad17-eeb3-4933-a0ff-46a978b9c21c">
 
 The source code contains the frontoffice where the user can interact with the page to buy a specific project and it also contains the backoffice, where it is possible for an admin user to insert new products.
+<img width="1470" alt="Screenshot 2024-11-03 at 14 37 13" src="https://github.com/user-attachments/assets/3f0d7473-88dd-437a-a79d-ad84fc700d4c">
+<img width="1461" alt="Screenshot 2024-11-03 at 14 38 07" src="https://github.com/user-attachments/assets/8d93450a-2dc7-4300-8a0e-64ba6fa5b862">
+<img width="1470" alt="Screenshot 2024-11-03 at 14 38 24" src="https://github.com/user-attachments/assets/e2de6085-c8c5-45ec-887d-0e374360b2dc">
 
 ## Functionalities Implemented
 
@@ -27,6 +35,8 @@ As for the functionalities already implemented in the frontoffice:
 - View products in the cart;
 - Proceed to checkout;
 - All forms have CSRF token implementation
+
+<img width="1470" alt="Screenshot 2024-11-03 at 13 39 33" src="https://github.com/user-attachments/assets/f2a80d70-94ac-4081-bf80-9bae9ac7fa48">
 
 ### Backoffice
 
