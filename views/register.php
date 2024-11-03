@@ -85,10 +85,7 @@
 
         // Fetch the CSRF token from the meta tag if it exists
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-
-        console.log(csrfToken);
         
-
         if (email.length > 3) 
         {
             fetch("/check-email-availability", {
