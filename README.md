@@ -4,7 +4,6 @@
 This project aimed to clone an e-commerce website that sells clothing and accesories.
 
 <img width="1470" alt="Screenshot 2024-11-03 at 13 33 15" src="https://github.com/user-attachments/assets/f932957f-8b55-47cc-8c86-d075960f42c9">
-<img width="1470" alt="Screenshot 2024-11-03 at 13 37 27" src="https://github.com/user-attachments/assets/be997472-cf4f-4f5e-bbd4-ac5d54d855c2">
 
 The project is focused on the backend functionality but the frontend was also developed to comprehensively implement all the backend functionalities.
 <img width="1470" alt="Screenshot 2024-11-03 at 13 41 08" src="https://github.com/user-attachments/assets/084bad17-eeb3-4933-a0ff-46a978b9c21c">
