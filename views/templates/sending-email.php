@@ -91,3 +91,42 @@ function sendOrderConfirmation($customerEmail, $customerName, $cartItems, $cartT
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 }
+
+function sendPasswordResetEmail($customerEmail, $customerName, $resetLink)
+{
+    //Create an instance; passing `true` enables exceptions
+    $mail = new PHPMailer(true);
+    echo ENV["MAIL_USERNAME"];
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+        $mail->isSMTP();                                            //Send using SMTP
+        $mail->Host       = "smtp.gmail.com";                       //Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+        $mail->Username   = ENV["MAIL_USERNAME"];                   //SMTP username
+        $mail->Password   = ENV["MAIL_PASSWORD"];                   //SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+        $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+        //Recipients
+        $mail->setFrom(ENV["MAIL_USERNAME"], "Hackett London");
+        $mail->addAddress($customerEmail, $customerName);     //Add a recipient
+
+        //Content
+        $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->Subject = "Hackett London | Password Reset";
+        // Build the HTML body dynamically with PHP
+        $body = "
+            <h2>Password Reset</h2>
+            <p>Hello $customerName,</p>
+            <p>Click <a href='$resetLink' target='_blank'>here</a> to reset your password></p>";
+
+        // Assign the generated body content to $mail->Body
+        $mail->Body = $body;
+
+        $mail->send();
+        echo "Message has been sent";
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+}

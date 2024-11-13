@@ -157,18 +157,39 @@ class Users extends Base
         return [];
     }
 
-    public function isEmailAvailable($email) {
+    public function isEmailAvailable($email) 
+    {
         $query = $this->db->prepare("
             SELECT  
                 COUNT(*) 
             FROM 
                 users 
             WHERE 
-                email = :email");
+                email = :email
+        ");
+
         $query->execute(["email" => $email]);
         
         $count = $query->fetchColumn();
 
         return $count == 0;
+    }
+
+    public function getUserByEmail($email)
+    {
+        $query = $this->db->prepare("
+            SELECT
+                id
+            FROM
+                users
+            WHERE
+                email = ?;
+        ");
+
+        $query->execute([
+            $email
+        ]);
+
+        return $query->fetch();
     }
 }
